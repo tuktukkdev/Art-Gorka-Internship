@@ -82,4 +82,28 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Проект удалён'], 200);
     }
+
+    public function check(string $id): JsonResponse//POST /api/projects/{id}/check
+    {
+        $project = Project::findOrFail($id);
+
+        try {
+
+            $response = \Illuminate\Support\Facades\Http::timeout(10)->get($project->url);
+
+            return response()->json([
+                'url'          => $project->url,
+                'status_code'  => $response->status(),
+                'is_available' => $response->successful(), 
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'url'          => $project->url,
+                'status_code'  => null,
+                'is_available' => false,
+                'error'        => 'Сайт недоступен: ' . $e->getMessage(),
+            ], 200);
+        }
+    }
 }

@@ -56,11 +56,11 @@ class ProjectSeeder extends Seeder
                 'description' => 'Клиненг сервис',
             ],
             [
-                'title'       => 'Сайт музея',
-                'url'         => 'https://museum.ru',
-                'platform'    => 'wordpress',
-                'status'      => 'archived',
-                'description' => 'Сайт музея с полным катологом экспонатов',
+                'title'       => 'Яндекс',
+                'url'         => 'https://yandex.ru',
+                'platform'    => 'custom',
+                'status'      => 'production',
+                'description' => 'Поисковая система'
             ],
             [
                 'title'       => 'Сайт зарубежных книг',
