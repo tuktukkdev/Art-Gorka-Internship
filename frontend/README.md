@@ -1,16 +1,29 @@
-# React + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Запуск
 
-Currently, two official plugins are available:
+1. Клонировать репозиторий
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+git clone https://github.com/qaqrrrrqaq-ship-it/art_gorka_practice.git
+```
 
-## React Compiler
+2. Перейти в папку frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+cd art_gorka_practice/frontend
+```
 
-## Expanding the ESLint configuration
+3. Установить зависимости
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+4. Запустить проект
+
+```bash
+npm run dev
+```
+
+Откроется по адресу: http://localhost:5173
