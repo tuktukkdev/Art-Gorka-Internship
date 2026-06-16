@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ApiResponse;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -12,15 +13,15 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
+    use ApiResponse;
     public function index(Request $request): JsonResponse //GET /api/projects 
     {
         $filters = $request->only(['platform', 'status']);
-
         $limit = min((int) $request->get('limit', 10), 100);
 
         $projects = Project::filter($filters)->paginate($limit);
- 
-        return response()->json($projects, 200);
+
+        return $this->success($projects, 'Projects fetched');
     }
 
     /**
@@ -46,9 +47,13 @@ class ProjectController extends Controller
      */
     public function show(string $id): JsonResponse//GET /api/projects/{id}
     {
-        $project = Project::findOrFail($id);
- 
-        return response()->json($project, 200);
+        $project = Project::find($id);
+
+        if (!$project) {
+            return $this->error('Project not found', 404);
+        }
+
+        return $this->success($project, 'Project fetched');
     }
 
     /**
@@ -56,7 +61,11 @@ class ProjectController extends Controller
      */
     public function update(Request $request, string $id): JsonResponse//PUT /api/projects/{id}
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
+
+        if (!$project) {
+            return $this->error('Project not found', 404);
+        }
 
         $validated = $request->validate([
             'title'       => ['sometimes', 'string', 'max:255'],
@@ -68,7 +77,7 @@ class ProjectController extends Controller
 
         $project->update($validated);
  
-        return response()->json($project, 200);
+        return $this->success($project, 'Project updated');
     }
 
     /**
@@ -76,34 +85,39 @@ class ProjectController extends Controller
      */
     public function destroy(string $id): JsonResponse//DELETE /api/projects/{id}
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
  
+        if (!$project) {
+            return $this->error('Project not found', 404);
+        }
+
         $project->delete();
 
-        return response()->json(['message' => 'Проект удалён'], 200);
+        return $this->success(null, 'Project deleted');
     }
 
     public function check(string $id): JsonResponse//POST /api/projects/{id}/check
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
+
+        if (!$project) {
+            return $this->error('Project not found', 404);
+        }
 
         try {
-
             $response = \Illuminate\Support\Facades\Http::timeout(10)->get($project->url);
 
-            return response()->json([
+            return $this->success([
                 'url'          => $project->url,
                 'status_code'  => $response->status(),
-                'is_available' => $response->successful(), 
-            ], 200);
-
+                'is_available' => $response->successful(),
+            ], 'Site checked');
         } catch (\Exception $e) {
-            return response()->json([
+            return $this->success([
                 'url'          => $project->url,
                 'status_code'  => null,
                 'is_available' => false,
-                'error'        => 'Сайт недоступен: ' . $e->getMessage(),
-            ], 200);
+            ], 'Site is not available');
         }
     }
 }
