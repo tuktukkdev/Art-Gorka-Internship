@@ -1,0 +1,12 @@
+.service-row {
+  display: grid;
+  max-width: 813px;
+  gap: 64px;
+  margin-bottom: 144px;
+}
+
+.accordions {
+  display: grid;
+  width: 813px;
+  gap: 40px;
+}

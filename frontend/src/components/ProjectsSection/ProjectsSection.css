@@ -1,0 +1,23 @@
+.projects {
+  padding-top: 144px;
+  display: grid;
+  gap: 64px;
+}
+
+.projects__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 64px 8px;
+}
+
+.projects__more {
+  width: fit-content;
+  justify-self: end;
+}

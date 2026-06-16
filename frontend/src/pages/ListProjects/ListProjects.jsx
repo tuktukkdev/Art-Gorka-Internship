@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { ProjectCard } from "../../components/ProjectCard";
@@ -9,49 +9,13 @@ import {
 } from "../../constants/projectFilters";
 import { getProjectTags } from "../../utils/projectFilters";
 import { useProjects } from "../../hooks/useProjects";
+import { useGridAnimation } from "../../hooks/useGridAnimation";
 import "./ListProjects.css";
-
-const GRID_COLLAPSE_DURATION = 200;
-const GRID_GAP_DELAY = 150;
-const GRID_APPEAR_DURATION = 250;
 
 export function ListProjects() {
   const [filters, setFilters] = useState(DEFAULT_PROJECT_FILTERS);
   const { projects } = useProjects(filters);
-
-  const [displayedProjects, setDisplayedProjects] = useState(projects);
-  const [gridPhase, setGridPhase] = useState("idle");
-  const prevProjectsRef = useRef(projects);
-
-  useEffect(() => {
-    if (prevProjectsRef.current === projects) return;
-
-    setGridPhase("collapsing");
-
-    const collapseTimer = setTimeout(() => {
-      setDisplayedProjects(projects);
-      prevProjectsRef.current = projects;
-      setGridPhase("hidden");
-    }, GRID_COLLAPSE_DURATION);
-
-    return () => clearTimeout(collapseTimer);
-  }, [projects]);
-
-  useEffect(() => {
-    if (gridPhase !== "hidden") return;
-
-    const gapTimer = setTimeout(() => setGridPhase("appearing"), GRID_GAP_DELAY);
-
-    return () => clearTimeout(gapTimer);
-  }, [gridPhase]);
-
-  useEffect(() => {
-    if (gridPhase !== "appearing") return;
-
-    const appearTimer = setTimeout(() => setGridPhase("idle"), GRID_APPEAR_DURATION);
-
-    return () => clearTimeout(appearTimer);
-  }, [gridPhase]);
+  const { displayed, gridClassName } = useGridAnimation(projects);
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -81,14 +45,8 @@ export function ListProjects() {
               </div>
             </div>
 
-            <ul
-              className={
-                gridPhase === "idle"
-                  ? "list-projects__grid"
-                  : `list-projects__grid list-projects__grid--${gridPhase}`
-              }
-            >
-              {displayedProjects.map((project) => (
+            <ul className={gridClassName}>
+              {displayed.map((project) => (
                 <li key={project.id}>
                   <ProjectCard
                     project={{ ...project, tags: getProjectTags(project) }}

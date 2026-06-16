@@ -1,0 +1,1 @@
+export { AccordionsSection } from "./AccordionsSection";
