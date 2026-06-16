@@ -1,0 +1,33 @@
+.footer {
+  background: var(--bg-secondary);
+  padding: 40px 0;
+}
+
+.footer__container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.footer__copyright {
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  color: var(--text-primary);
+}
+
+.footer__policy-link {
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  color: var(--text-accent);
+}
+
+.footer__policy-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0px;
+  text-underline-offset: 2px;
+}

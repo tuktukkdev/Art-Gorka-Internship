@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "image": "/images/projects/project-1.jpg",
+    "name": "Лендинг для студии маникюра",
+    "industry": "beauty",
+    "projectType": "landing",
+    "link": "https://example.com"
+  },
+  {
+    "id": 2,
+    "image": "/images/projects/project-2.jpg",
+    "name": "Продвижение интернет-магазина одежды",
+    "industry": "retail",
+    "projectType": "ads",
+    "link": "https://example.com"
+  },
+  {
+    "id": 3,
+    "image": "/images/projects/project-3.jpg",
+    "name": "Ведение соцсетей кофейни",
+    "industry": "horeca",
+    "projectType": "smm",
+    "link": "https://example.com"
+  },
+  {
+    "id": 4,
+    "image": "/images/projects/project-4.jpg",
+    "name": "Корпоративный сайт строительной компании",
+    "industry": "construction",
+    "projectType": "corporate-site",
+    "link": "https://example.com"
+  },
+  {
+    "id": 5,
+    "image": "/images/projects/project-1.jpg",
+    "name": "Интернет-магазин косметики",
+    "industry": "beauty",
+    "projectType": "online-store",
+    "link": "https://example.com"
+  },
+  {
+    "id": 6,
+    "image": "/images/projects/project-2.jpg",
+    "name": "Реклама для автосервиса",
+    "industry": "automotive",
+    "projectType": "ads",
+    "link": "https://example.com"
+  },
+  {
+    "id": 7,
+    "image": "/images/projects/project-3.jpg",
+    "name": "SMM для фитнес-клуба",
+    "industry": "fitness",
+    "projectType": "smm",
+    "link": "https://example.com"
+  },
+  {
+    "id": 8,
+    "image": "/images/projects/project-4.jpg",
+    "name": "Сайт-визитка юридической компании",
+    "industry": "legal",
+    "projectType": "landing",
+    "link": "https://example.com"
+  },
+  {
+    "id": 9,
+    "image": "/images/projects/project-1.jpg",
+    "name": "Продвижение ресторана в соцсетях",
+    "industry": "horeca",
+    "projectType": "smm",
+    "link": "https://example.com"
+  },
+  {
+    "id": 10,
+    "image": "/images/projects/project-2.jpg",
+    "name": "Контекстная реклама для турагентства",
+    "industry": "travel",
+    "projectType": "ads",
+    "link": "https://example.com"
+  },
+  {
+    "id": 11,
+    "image": "/images/projects/project-3.jpg",
+    "name": "Лендинг для онлайн-школы",
+    "industry": "education",
+    "projectType": "landing",
+    "link": "https://example.com"
+  },
+  {
+    "id": 12,
+    "image": "/images/projects/project-4.jpg",
+    "name": "Корпоративный сайт производственной компании",
+    "industry": "manufacturing",
+    "projectType": "corporate-site",
+    "link": "https://example.com"
+  }
+]
