@@ -281,7 +281,7 @@ export function Home() {
           <Categories />
           <About />
 
-          <section className="projects">
+          <section id="projects" className="projects">
             <div className="projects__head">
               <h2 className="subtitle">Какие-то наши проекты</h2>
 
@@ -315,7 +315,7 @@ export function Home() {
             </Button>
           </section>
 
-          <section className="service">
+          <section id="service" className="service">
             <h2 className="subtitle">Какая-то табличка</h2>
 
             <dl className="service-table">
@@ -417,7 +417,7 @@ export function Home() {
             </p>
           </div>
         </section>
-        <section className="contact">
+        <section id="contact" className="contact">
           <div className="container">
             <div className="section-head">
               <h2 className="subtitle">Свяжитесь с нами</h2>

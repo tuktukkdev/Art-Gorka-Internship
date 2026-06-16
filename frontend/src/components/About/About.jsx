@@ -42,7 +42,7 @@ export function About() {
   };
 
   return (
-    <section className="about">
+    <section id="about" className="about">
       <div className="about__container">
         <div className="about__info">
           <h2 className="about__title title">Что-то про студию</h2>

@@ -4,7 +4,12 @@ import { Button } from "../Button";
 import "./Header.css";
 import logo from "../../assets/images/logo.svg";
 
-const navItems = ["Студия", "Проекты", "Услуги", "Контакты"];
+const navItems = [
+  { label: "Студия", to: "/#about" },
+  { label: "Проекты", to: "/#projects" },
+  { label: "Услуги", to: "/#service" },
+  { label: "Контакты", to: "/#contact" },
+];
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,10 +30,10 @@ export function Header() {
           </Link>
 
           <nav className="nav_list" aria-label="Основная навигация">
-            {navItems.map((label) => (
-              <a key={label} href="#" className="nav_item">
+            {navItems.map(({ label, to }) => (
+              <Link key={label} to={to} className="nav_item">
                 {label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

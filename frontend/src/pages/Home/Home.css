@@ -19,7 +19,7 @@
 }
 
 .projects {
-  padding-bottom: 144px;
+  padding-top: 144px;
   display: grid;
   gap: 64px;
 }
@@ -45,7 +45,7 @@
 .service {
   display: grid;
   gap: 64px;
-  margin-bottom: 144px;
+  padding: 144px 0;
 }
 
 .service_row {
@@ -232,7 +232,7 @@
 }
 
 .contact {
-  margin: 144px 0;
+  padding: 144px 0;
 }
 
 .contact-text {
