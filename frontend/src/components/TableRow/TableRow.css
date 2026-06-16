@@ -1,0 +1,28 @@
+.table-row {
+  display: grid;
+  grid-template-columns: 346px 1fr;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border-primary);
+  gap: 48px;
+}
+
+.table-row:not(:first-child) {
+  margin-top: 40px;
+}
+
+.table-item-name {
+  font-family: Onest;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+.table-item-text {
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  max-width: 900px;
+}
