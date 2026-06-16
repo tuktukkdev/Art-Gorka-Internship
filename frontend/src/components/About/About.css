@@ -1,5 +1,8 @@
 .about {
   padding-top: 144px;
+  background-image: url("../../assets/images/bg-img.svg");
+  background-repeat: no-repeat;
+  background-position: right top;
 }
 
 .about__container {
@@ -9,12 +12,12 @@
   padding-bottom: 64px;
 }
 
-.about__title {
+.about__subtitle {
   margin-bottom: 16px;
 }
 
 .about__text {
-  max-width: 676px;
+  max-width: 600px;
 }
 
 .about__text:not(:last-of-type) {

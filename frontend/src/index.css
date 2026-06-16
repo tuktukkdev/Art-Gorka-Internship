@@ -88,8 +88,6 @@ body {
   flex-direction: column;
 }
 
-
-
 img,
 picture,
 video,
@@ -124,6 +122,10 @@ a {
   text-decoration: none;
 }
 
+.text-link {
+  color: var(--text-accent);
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -153,7 +155,6 @@ fieldset {
 
 .text {
   font-size: 20px;
-  line-height: 100%;
   color: var(--text-primary);
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
+import { useModal } from "../../context/ModalContext";
 import "./Header.css";
 import logo from "../../assets/images/logo.svg";
 
@@ -13,6 +14,7 @@ const navItems = [
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
@@ -42,7 +44,7 @@ export function Header() {
           <a href="tel:88002228684" className="phone_link">
             8 800 222 86 84
           </a>
-          <Button variant="secondary">Обсудить проект</Button>
+          <Button variant="secondary" onClick={openModal}>Обсудить проект</Button>
         </div>
       </div>
     </header>

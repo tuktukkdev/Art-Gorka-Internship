@@ -22,7 +22,7 @@ export function Home() {
           <section className="hero">
             <div className="hero__content">
               <h1 className="title">Тестовое задание</h1>
-              <p className="text">на практику веб-разработчика в студии</p>
+              <p className="text">на практику веб-разработчика в студии <a href="https://artgorka.ru/" target="_blank" rel="noreferrer" className="hero__link">Art gorka</a></p>
             </div>
 
             <div className="hero__actions">

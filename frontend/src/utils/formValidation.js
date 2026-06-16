@@ -7,19 +7,16 @@ export function validateFeedbackField(name, value, isRequired = false) {
     case "name": {
       if (trimmed.length < 2) return "Имя слишком короткое";
       if (trimmed.length > 50) return "Имя слишком длинное";
-      if (
-        !/^[A-Za-zА-ЯЁа-яё]([A-Za-zА-ЯЁа-яё\s-]*[A-Za-zА-ЯЁа-яё])?$/.test(
-          trimmed,
-        )
-      ) {
-        return "Только буквы, пробел и дефис";
+      if (!/^[A-Za-zА-ЯЁа-яё]+$/.test(trimmed)) {
+        return "Только буквы, без пробелов и дефисов";
       }
       return "";
     }
     case "phone": {
       const digits = trimmed.replace(/\D/g, "");
-      if (digits.length < 10 || digits.length > 15) {
-        return "Введите корректный номер телефона";
+      const normalized = digits.startsWith("8") ? "7" + digits.slice(1) : digits;
+      if (!/^7\d{10}$/.test(normalized)) {
+        return "Введите российский номер (+7 или 8)";
       }
       return "";
     }

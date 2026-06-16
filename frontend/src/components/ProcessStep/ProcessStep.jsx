@@ -7,9 +7,13 @@ export function ProcessStep({ number, title, description }) {
       <div className="step-info">
         <h3 className="step-title">{title}</h3>
         <div className="step-description">
-          {description.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
+          {description.map((paragraph, index) =>
+            typeof paragraph === "string" ? (
+              <p key={index}>{paragraph}</p>
+            ) : (
+              <p key={index} dangerouslySetInnerHTML={{ __html: paragraph.html }} />
+            )
+          )}
         </div>
       </div>
     </div>

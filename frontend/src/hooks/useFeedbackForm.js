@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FEEDBACK_FIELDS, FEEDBACK_INITIAL_VALUES } from "../constants/homeContent";
 import { validateFeedbackField } from "../utils/formValidation";
 
 export function useFeedbackForm() {
   const [values, setValues] = useState(FEEDBACK_INITIAL_VALUES);
   const [errors, setErrors] = useState({});
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,8 +35,17 @@ export function useFeedbackForm() {
 
     if (Object.keys(nextErrors).length === 0) {
       setValues(FEEDBACK_INITIAL_VALUES);
+      setIsSuccess(true);
     }
   };
 
-  return { values, errors, handleChange, handleBlur, handleSubmit };
+  const handleCloseSuccess = () => setIsSuccess(false);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+    const timer = setTimeout(() => setIsSuccess(false), 6000);
+    return () => clearTimeout(timer);
+  }, [isSuccess]);
+
+  return { values, errors, handleChange, handleBlur, handleSubmit, isSuccess, handleCloseSuccess };
 }

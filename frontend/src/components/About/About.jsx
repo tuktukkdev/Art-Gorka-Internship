@@ -45,7 +45,7 @@ export function About() {
     <section id="about" className="about">
       <div className="about__container">
         <div className="about__info">
-          <h2 className="about__title title">Что-то про студию</h2>
+          <h2 className="about__subtitle subtitle">Что-то про студию</h2>
           <p className="about__text text">
             Создаём эффективные веб-продукты и дизайн с 2011 года.
           </p>
@@ -54,7 +54,9 @@ export function About() {
             аналитику и юзабилити.
           </p>
         </div>
-        <Button variant="secondary">Перейти на сайт студии</Button>
+        <a href="https://artgorka.ru/" target="_blank" rel="noreferrer">
+          <Button variant="secondary">Перейти на сайт студии</Button>
+        </a>
       </div>
 
       <div

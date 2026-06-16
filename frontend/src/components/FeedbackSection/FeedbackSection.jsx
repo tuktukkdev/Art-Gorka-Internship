@@ -1,4 +1,5 @@
 import { Button } from "../Button";
+import { SuccessModal } from "../SuccessModal";
 import { FEEDBACK_FIELDS } from "../../constants/homeContent";
 import { useFeedbackForm } from "../../hooks/useFeedbackForm";
 import "./FeedbackSection.css";
@@ -60,6 +61,10 @@ export function FeedbackSection() {
           персональных данных.
         </p>
       </div>
+
+      {feedback.isSuccess && (
+        <SuccessModal onClose={feedback.handleCloseSuccess} />
+      )}
     </section>
   );
 }

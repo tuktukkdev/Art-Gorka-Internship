@@ -123,7 +123,7 @@ export const PROCESS_STEPS = [
   {
     title: "Знакомимся и обсуждаем проект",
     description: [
-      "Оставляйте заявку на сайте, на почту или звоните по 8 (921) 0 250 250.",
+      { html: 'Оставляйте заявку <span class="text-link">на сайте, на почту</span> или звоните по <span class="text-link">8 (921) 0 250 250</span>.' },
       "Наш менеджер ответит вам, предварительно обсудим, какие задачи нужно решить. После этого предложим заполнить бриф, где вы сможете подробно рассказать о проекте.",
     ],
   },
@@ -155,3 +155,12 @@ export const FEEDBACK_FIELDS = [
 ];
 
 export const FEEDBACK_INITIAL_VALUES = { name: "", phone: "", email: "" };
+
+export const FEEDBACK_MODAL_FIELDS = [
+  { name: "name", type: "text", placeholder: "Имя" },
+  { name: "phone", type: "tel", placeholder: "Телефон", required: true },
+  { name: "email", type: "email", placeholder: "Email" },
+  { name: "message", tag: "textarea", placeholder: "Опишите ваш запрос" },
+];
+
+export const FEEDBACK_MODAL_INITIAL_VALUES = { name: "", phone: "", email: "", message: "" };
