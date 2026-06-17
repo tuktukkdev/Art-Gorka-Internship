@@ -64,14 +64,11 @@
     margin-left: auto;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
-  }
-}
 
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -79,7 +76,7 @@ body {
   line-height: 1.5;
   font-family: 'Onest', sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .section-head {
@@ -144,7 +141,7 @@ fieldset {
   font-family: Gilroy;
   font-weight: 600;
   font-size: 84px;
-  line-height: 1.2;
+  line-height: 1;
   letter-spacing: -2px;
   color: var(--text-accent);
 }
@@ -173,4 +170,32 @@ fieldset {
 
 .media-zoom:hover .media-zoom__image {
   transform: scale(1.08);
+}
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 719px) {
+  .container {
+    padding: 0 16px;
+  }
+  .title {
+    font-size: 44px;
+    letter-spacing: -1.6px;
+  }
+  .subtitle {
+    font-size: 36px;
+  }
+  .text {
+    font-size: 16px;
+  }
 }

@@ -21,3 +21,37 @@
   width: fit-content;
   justify-self: end;
 }
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  .projects {
+    padding-top: 100px;
+  }
+  .projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .projects {
+    padding-top: 144px;
+    gap: 48px;
+  }
+  .projects__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 719px) {
+  .projects {
+    padding-top: 76px;
+    gap: 40px;
+  }
+  .projects__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .projects__more {
+    justify-self: center;
+  }
+}

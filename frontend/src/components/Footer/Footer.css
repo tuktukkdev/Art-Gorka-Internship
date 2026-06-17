@@ -30,3 +30,25 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .footer__copyright,
+  .footer__policy-link {
+    font-size: 16px;
+  }
+  .footer__container {
+    gap: 32px;
+  }
+}
+
+@media (max-width: 719px) {
+  .footer__copyright,
+  .footer__policy-link {
+    font-size: 16px;
+  }
+  .footer__container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

@@ -26,3 +26,28 @@
   color: var(--text-primary);
   max-width: 900px;
 }
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  .table-row {
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .table-row {
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 719px) {
+  .table-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding-bottom: 24px;
+  }
+  .table-row:not(:first-child) {
+    margin-top: 24px;
+  }
+}

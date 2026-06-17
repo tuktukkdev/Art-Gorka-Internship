@@ -11,3 +11,9 @@
   line-height: 120%;
   color: var(--text-accent);
 }
+
+@media (max-width: 719px) {
+  .stat__value {
+    font-size: 28px;
+  }
+}

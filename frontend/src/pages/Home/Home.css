@@ -194,3 +194,133 @@
   object-position: center 33%;
   display: block;
 }
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  .service {
+    padding: 100px 0;
+    gap: 48px;
+  }
+  .benefits {
+    margin-bottom: 100px;
+  }
+  .process {
+    margin-bottom: 100px;
+  }
+  .contact {
+    padding: 100px 0;
+  }
+  .contact__inner {
+    gap: 40px;
+  }
+  .contact__map-link {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    max-height: none;
+  }
+  .contact__columns {
+    display: grid;
+  }
+  .contact__persons {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .service {
+    padding: 144px 0;
+    gap: 40px;
+  }
+  .benefits {
+    gap: 40px;
+    margin-bottom: 144px;
+  }
+  .process {
+    gap: 40px;
+    margin-bottom: 144px;
+  }
+  .contact {
+    padding: 144px 0;
+  }
+  .contact__inner {
+    flex-direction: column;
+    gap: 64px;
+  }
+  .contact__map-link {
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+  }
+  .contact__columns {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .contact__persons {
+    flex-direction: row;
+  }
+  .contact__info {
+    gap: 32px;
+  }
+  .contact__phone,
+  .contact__link {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 719px) {
+  .hero {
+    gap: 32px;
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+  .hero__content {
+    gap: 16px;
+  }
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .service {
+    padding: 64px 0;
+    gap: 32px;
+  }
+  .benefits-container {
+    grid-template-columns: 1fr;
+  }
+  .benefits-container::after {
+    display: none;
+  }
+  .benefits {
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+  .process {
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+  .contact {
+    padding: 64px 0;
+  }
+  .contact__inner {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .contact__map-link {
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+  }
+  .contact__columns {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .contact__info {
+    gap: 32px;
+  }
+  .contact__phone,
+  .contact__link {
+    font-size: 16px;
+  }
+}

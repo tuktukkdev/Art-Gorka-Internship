@@ -33,7 +33,6 @@
 .project-detail__hero {
   width: 100%;
   aspect-ratio: 16 / 7;
-  overflow: hidden;
   padding-top: 32px;
 }
 

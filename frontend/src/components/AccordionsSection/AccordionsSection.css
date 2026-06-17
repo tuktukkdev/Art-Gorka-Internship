@@ -10,3 +10,33 @@
   width: 813px;
   gap: 40px;
 }
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  .service-row {
+    gap: 48px;
+    margin-bottom: 100px;
+  }
+  .accordions {
+    width: 100%;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .service-row {
+    gap: 64px;
+    margin-bottom: 144px;
+  }
+  .accordions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 719px) {
+  .service-row {
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+  .accordions {
+    width: 100%;
+  }
+}

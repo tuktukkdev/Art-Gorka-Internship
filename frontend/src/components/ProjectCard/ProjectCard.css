@@ -54,3 +54,12 @@
   height: 20px;
   flex-shrink: 0;
 }
+
+@media (max-width: 719px) {
+  .project-card-name {
+    font-size: 24px;
+  }
+  .project-card-link {
+    font-size: 16px;
+  }
+}

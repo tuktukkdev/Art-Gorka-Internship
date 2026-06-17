@@ -94,3 +94,9 @@
 .icon-button.open {
   transform: rotate(45deg);
 }
+
+@media (max-width: 719px) {
+  .accordion-name {
+    font-size: 20px;
+  }
+}
