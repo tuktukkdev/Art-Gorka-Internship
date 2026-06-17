@@ -58,22 +58,30 @@
   animation: project-card-appear 0.25s ease-in-out forwards;
 }
 
-@media (min-width: 720px) and (max-width: 1079px) {
-  .list-projects {
-    padding-bottom: 80px;
-  }
+@media (max-width: 1079px) {
   .list-projects__head {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  .list-projects__grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-    margin-top: 48px;
-  }
+
   .list-projects__filters {
     gap: 24px;
+  }
+
+  .list-projects__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .list-projects {
+    padding-bottom: 80px;
+  }
+
+  .list-projects__grid {
+    gap: 48px;
+    margin-top: 48px;
   }
 }
 
@@ -81,17 +89,9 @@
   .list-projects {
     padding-bottom: 64px;
   }
-  .list-projects__head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
+
   .list-projects__grid {
-    grid-template-columns: 1fr;
     gap: 40px;
     margin-top: 32px;
-  }
-  .list-projects__filters {
-    gap: 24px;
   }
 }

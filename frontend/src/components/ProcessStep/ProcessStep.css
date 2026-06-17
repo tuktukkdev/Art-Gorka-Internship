@@ -45,15 +45,20 @@
   color: var(--text-primary);
 }
 
-@media (min-width: 1080px) and (max-width: 1439px) {
+@media (max-width: 1439px) {
   .step-item {
     width: 100%;
   }
 }
 
+@media (max-width: 1079px) {
+  .step-description {
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 720px) and (max-width: 1079px) {
   .step-item {
-    width: 100%;
     gap: 24px;
   }
   .step-item-number {
@@ -61,14 +66,10 @@
     height: 48px;
     font-size: 28px;
   }
-  .step-description {
-    font-size: 16px;
-  }
 }
 
 @media (max-width: 719px) {
   .step-item {
-    width: 100%;
     gap: 16px;
   }
   .step-item-number {
@@ -78,8 +79,5 @@
   }
   .step-title {
     font-size: 18px;
-  }
-  .step-description {
-    font-size: 16px;
   }
 }

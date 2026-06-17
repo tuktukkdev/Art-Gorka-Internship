@@ -26,9 +26,6 @@
   .projects {
     padding-top: 100px;
   }
-  .projects__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (min-width: 720px) and (max-width: 1079px) {

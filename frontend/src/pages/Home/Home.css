@@ -226,25 +226,9 @@
   }
 }
 
-@media (min-width: 720px) and (max-width: 1079px) {
-  .service {
-    padding: 144px 0;
-    gap: 40px;
-  }
-  .benefits {
-    gap: 40px;
-    margin-bottom: 144px;
-  }
-  .process {
-    gap: 40px;
-    margin-bottom: 144px;
-  }
-  .contact {
-    padding: 144px 0;
-  }
+@media (max-width: 1079px) {
   .contact__inner {
     flex-direction: column;
-    gap: 64px;
   }
   .contact__map-link {
     flex: 0 0 auto;
@@ -254,10 +238,6 @@
   }
   .contact__columns {
     flex-direction: column;
-    gap: 48px;
-  }
-  .contact__persons {
-    flex-direction: row;
   }
   .contact__info {
     gap: 32px;
@@ -265,6 +245,27 @@
   .contact__phone,
   .contact__link {
     font-size: 16px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .service {
+    gap: 40px;
+  }
+  .benefits {
+    gap: 40px;
+  }
+  .process {
+    gap: 40px;
+  }
+  .contact__inner {
+    gap: 64px;
+  }
+  .contact__columns {
+    gap: 48px;
+  }
+  .contact__persons {
+    flex-direction: row;
   }
 }
 
@@ -303,24 +304,9 @@
     padding: 64px 0;
   }
   .contact__inner {
-    flex-direction: column;
     gap: 32px;
-  }
-  .contact__map-link {
-    flex: 0 0 auto;
-    width: 100%;
-    max-height: none;
-    overflow: visible;
   }
   .contact__columns {
-    flex-direction: column;
     gap: 24px;
-  }
-  .contact__info {
-    gap: 32px;
-  }
-  .contact__phone,
-  .contact__link {
-    font-size: 16px;
   }
 }

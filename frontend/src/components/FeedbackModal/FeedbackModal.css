@@ -98,7 +98,7 @@
   background: var(--bg-primary);
   font-family: Onest;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.5;
   color: var(--text-primary);
   caret-color: var(--text-accent);
@@ -156,4 +156,30 @@
 .feedback-modal__link {
   color: var(--text-accent);
   text-decoration: underline;
+}
+
+@media (max-width: 719px) {
+  .feedback-modal {
+    padding: 48px 16px;
+    width: 328px;
+    gap: 32px;
+  }
+
+  .feedback-modal__input {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+
+  .feedback-modal__submit {
+    font-size: 16px;
+    padding: 16px 0;
+  }
+
+  .feedback-modal__title {
+    font-size: 36px;
+  }
+
+  .feedback-modal__desc {
+    font-size: 16px;
+  }
 }

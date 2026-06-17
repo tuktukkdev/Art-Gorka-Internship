@@ -77,14 +77,10 @@
 }
 
 @media (min-width: 720px) and (max-width: 1079px) {
-  .about {
-    padding-top: 144px;
-  }
   .about__container {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    padding-bottom: 64px;
   }
   .about__info {
     width: 100%;
@@ -95,7 +91,6 @@
   .about__stats {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    padding-top: 64px;
     gap: 40px;
   }
   .about__stats .stat:not(:last-child) {

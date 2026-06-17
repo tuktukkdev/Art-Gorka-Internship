@@ -172,13 +172,7 @@ fieldset {
   transform: scale(1.08);
 }
 
-@media (min-width: 1080px) and (max-width: 1439px) {
-  .container {
-    padding: 0 24px;
-  }
-}
-
-@media (min-width: 720px) and (max-width: 1079px) {
+@media (min-width: 720px) and (max-width: 1439px) {
   .container {
     padding: 0 24px;
   }

@@ -58,3 +58,9 @@
   padding: 12px 32px;
   margin-top: 12px;
 }
+
+@media (max-width: 360px) {
+  .success-modal {
+    width: 328px;
+  }
+}

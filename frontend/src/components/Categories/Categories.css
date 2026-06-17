@@ -19,16 +19,14 @@
   }
 }
 
-@media (min-width: 720px) and (max-width: 1079px) {
+@media (max-width: 1079px) {
   .categories {
     flex-direction: column;
-    padding-bottom: 64px;
   }
 }
 
-@media (max-width: 719px) {
+@media (min-width: 720px) and (max-width: 1079px) {
   .categories {
-    flex-direction: column;
-    padding-bottom: 96px;
+    padding-bottom: 64px;
   }
 }
