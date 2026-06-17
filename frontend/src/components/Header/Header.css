@@ -263,6 +263,10 @@
     display: none;
   }
 
+  .header__cta {
+    display: none;
+  }
+
   .mobile-menu__inner {
     padding-top: 32px;
   }
