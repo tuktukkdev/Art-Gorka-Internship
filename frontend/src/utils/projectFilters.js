@@ -20,3 +20,8 @@ export function getProjectTags(project) {
     .map((option) => option.label);
 }
 
+export function getFilterLabel(key, value) {
+  const filter = PROJECT_FILTERS_CONFIG.find((f) => f.key === key);
+  return filter?.options.find((o) => o.value === value)?.label ?? value;
+}
+
