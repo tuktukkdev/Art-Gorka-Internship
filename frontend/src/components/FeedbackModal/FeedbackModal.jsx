@@ -21,7 +21,7 @@ export function FeedbackModal({ onClose }) {
   return (
     <div className="feedback-modal-overlay" onClick={onClose}>
       <div className="feedback-modal" onClick={(e) => e.stopPropagation()}>
-        <button className="feedback-modal__close" onClick={onClose} type="button">
+        <button className="feedback-modal__close" onClick={onClose} type="button" aria-label="Закрыть">
           <CloseBtn />
         </button>
 

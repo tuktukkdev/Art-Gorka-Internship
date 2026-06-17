@@ -66,7 +66,6 @@
   background: transparent;
   font-family: Onest;
   font-weight: 400;
-  font-style: normal;
   font-size: 20px;
   line-height: 100%;
   color: var(--text-primary-inverse);
@@ -108,10 +107,8 @@
   margin-left: 24px;
   font-family: Onest;
   font-weight: 400;
-  font-style: normal;
   font-size: 16px;
   line-height: 100%;
-  letter-spacing: 0;
   color: var(--text-primary-inverse, #FFFFFF);
 }
 

@@ -73,9 +73,124 @@
 .contact-text {
   font-family: Onest;
   font-weight: 400;
-  font-style: normal;
   font-size: 20px;
-  line-height: 100%;
-  letter-spacing: 0%;
+  line-height: 1.5;
   color: var(--text-primary, #424C5C);
+}
+
+.contact__inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.contact__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.contact__columns {
+  display: flex;
+  gap: 40px;
+}
+
+.contact__persons {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact__person {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.contact__phone {
+  display: block;
+  font-size: 20px;
+  color: var(--text-accent);
+}
+
+.contact__person-name {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.contact__details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact__detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact__link {
+  font-size: 20px;
+  color: var(--text-accent);
+}
+
+.contact__label {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.contact__map-link {
+  display: block;
+  flex: 0 0 48%;
+  min-width: 0;
+  aspect-ratio: 539 / 400;
+  max-height: 540px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid var(--border-primary);
+}
+
+.contact__map-link::after {
+  content: "Построить маршрут";
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-primary);
+  color: var(--text-accent);
+  box-shadow: 0 2px 16px var(--shadow-primary);
+  padding: 8px 20px;
+  font-family: Onest;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.contact__map-link:hover::after {
+  opacity: 1;
+}
+
+.contact__map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 33%;
+  display: block;
 }

@@ -26,6 +26,11 @@
   --border-primary-inverse-active: #FFFFFF;
   --bg-error: #FF555533;
   --border-error: #FF5555;
+  --text-error: #FF5555;
+  --icon-primary: #424C5C;
+  --bg-overlay: #424C5C80;
+  --shadow-primary: #424C5C33;
+  --bg-accent-subtle: #696FE50D;
 }
 
 *,

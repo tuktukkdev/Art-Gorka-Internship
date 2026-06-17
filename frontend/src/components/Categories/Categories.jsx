@@ -20,10 +20,10 @@ const categories = [
 
 export function Categories() {
   return (
-    <section className="categories" aria-label="Категории услуг">
+    <div className="categories">
       {categories.map(({ id, to, image, title }) => (
         <CategoryCard key={id} to={to} image={image} title={title} />
       ))}
-    </section>
+    </div>
   );
 }

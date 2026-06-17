@@ -1,0 +1,14 @@
+.copy-btn {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.copy-btn path {
+  fill: var(--icon-primary, #424C5C);
+  transition: fill 0.2s ease;
+}
+
+.copy-btn:hover path {
+  fill: var(--text-accent);
+}

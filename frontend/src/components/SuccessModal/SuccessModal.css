@@ -1,7 +1,7 @@
 .success-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(66, 76, 92, 0.5);
+  background: var(--bg-overlay);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   display: flex;
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  box-shadow: 0 4px 60px 0 #424C5C33;
+  box-shadow: 0 4px 60px 0 var(--shadow-primary);
 }
 
 .success-modal__close {
@@ -27,7 +27,7 @@
   top: 13px;
   right: 13px;
   cursor: pointer;
-  color: #424C5C;
+  color: var(--text-primary);
   transition: opacity 0.2s ease;
 }
 

@@ -164,3 +164,11 @@ export const FEEDBACK_MODAL_FIELDS = [
 ];
 
 export const FEEDBACK_MODAL_INITIAL_VALUES = { name: "", phone: "", email: "", message: "" };
+
+export const MAPS_URL = "https://www.google.com/maps/dir//Великий+Новгород,+ул.+Студенческая,+14";
+
+export const CONTACT_EMAIL = "info@artgorka.ru";
+
+export const CONTACT_DETAILS = [
+  { href: "tel:88002228684", label: "8 800 222 86 84", description: "Бесплатные звонки по России" },
+];

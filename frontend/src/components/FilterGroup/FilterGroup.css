@@ -87,7 +87,7 @@
   min-width: 260px;
   padding: 16px;
   background: var(--bg-primary);
-  box-shadow: 0 4px 40px #424c5c33;
+  box-shadow: 0 4px 40px var(--shadow-primary);
 }
 
 .filter-dropdown__option {

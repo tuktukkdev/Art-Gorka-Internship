@@ -1,4 +1,5 @@
 import "./ProjectCard.css";
+import iconLink from "../../assets/images/icon-link.svg";
 
 export function ProjectCard({ project }) {
   return (
@@ -25,6 +26,7 @@ export function ProjectCard({ project }) {
           rel="noopener noreferrer"
           className="project-card-link"
         >
+          <img src={iconLink} alt="" className="project-card-link-icon" />
           {project.link.replace(/^https?:\/\//, "")}
         </a>
       </div>
