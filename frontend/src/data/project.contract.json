@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project",
+  "description": "Карточка проекта — используется на странице портфолио и в детальном просмотре",
+  "type": "object",
+  "required": ["id", "image", "title", "industry", "projectType", "url", "description", "platform", "status", "stack"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Уникальный идентификатор проекта"
+    },
+    "image": {
+      "type": "string",
+      "description": "Путь к обложке проекта",
+      "example": "/images/projects/project-1.jpg"
+    },
+    "title": {
+      "type": "string",
+      "description": "Название проекта",
+      "example": "Лендинг для студии маникюра"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Отрасль клиента",
+      "enum": [
+        "beauty",
+        "retail",
+        "horeca",
+        "construction",
+        "automotive",
+        "fitness",
+        "legal",
+        "travel",
+        "education",
+        "manufacturing"
+      ]
+    },
+    "projectType": {
+      "type": "string",
+      "description": "Тип услуги",
+      "enum": [
+        "landing",
+        "corporate-site",
+        "online-store",
+        "ads",
+        "smm"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Ссылка на готовый проект"
+    },
+    "description": {
+      "type": "string",
+      "description": "Подробное описание проекта"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Платформа или рекламная система, через запятую если несколько",
+      "example": "Google Ads, Яндекс.Директ"
+    },
+    "status": {
+      "type": "string",
+      "description": "Текущий статус проекта",
+      "enum": [
+        "В работе",
+        "Завершён"
+      ]
+    },
+    "stack": {
+      "type": "array",
+      "description": "Список применённых технологий и услуг",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "example": ["UI/UX дизайн", "Вёрстка", "SEO"]
+    }
+  }
+}
