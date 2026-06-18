@@ -13,12 +13,12 @@ export function ProjectCard({ project }) {
       <div className="project-card-image-wrapper">
         <img
           src={project.image}
-          alt={project.name}
+          alt={project.title}
           className="media-zoom__image"
         />
       </div>
       <div className="project-card-content">
-        <p className="project-card-name">{project.name}</p>
+        <p className="project-card-name">{project.title}</p>
         <div className="project-card-tags">
           {project.tags.map((tag) => (
             <span key={tag} className="project-card-tag">
@@ -27,14 +27,14 @@ export function ProjectCard({ project }) {
           ))}
         </div>
         <a
-          href={project.link}
+          href={project.url}
           target="_blank"
           rel="noopener noreferrer"
           className="project-card-link"
           onClick={(e) => e.stopPropagation()}
         >
           <img src={iconLink} alt="" className="project-card-link-icon" />
-          {project.link.replace(/^https?:\/\//, "")}
+          {project.url.replace(/^https?:\/\//, "")}
         </a>
       </div>
     </div>
