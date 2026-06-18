@@ -1,96 +1,129 @@
 <?php
- 
+
 namespace Database\Seeders;
- 
+
 use App\Models\Project;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $projects = [
             [
-                'title'       => 'Интернет-магазин хайповых кросовок',
-                'url'         => 'https://shoe-store.ru',
-                'platform'    => 'wordpress',
-                'status'      => 'production',
-                'description' => 'Магазин хайповых кросовок',
+                'title' => 'Интернет-магазин хайповых кросовок',
+                'url' => 'https://sneakershop.ru',
+                'image' => '/images/projects/project-1.jpg',
+                'industry' => 'retail',
+                'project_type' => 'online-store',
+                'platform' => 'wordpress',
+                'status' => 'Завершено',
+                'description' => 'Магазин с интеграцией 1С и онлайн-оплатой.',
+                'stack' => json_encode(['UI/UX дизайн', 'Вёрстка', 'Интеграция 1С']),
             ],
             [
-                'title'       => 'Магазин продажи одежды',
-                'url'         => 'https://clothes-shop.ru',
-                'platform'    => 'bitrix',
-                'status'      => 'production',
-                'description' => 'Интернет магазин качесткенной одежды',
+                'title' => 'Магазин продажи одежды',
+                'url' => 'https://clothes-shop.ru',
+                'image' => '/images/projects/project-2.jpg',
+                'industry' => 'retail',
+                'project_type' => 'online-store',
+                'platform' => 'bitrix',
+                'status' => 'Завершено',
+                'description' => 'Интернет-магазин качественной одежды',
+                'stack' => json_encode(['UI/UX дизайн', 'Разработка', 'Интеграция CRM']),
             ],
             [
-                'title'       => 'Сайт создания портфолио',
-                'url'         => 'https://portfolio.ru',
-                'platform'    => 'custom',
-                'status'      => 'production',
-                'description' => 'Сайт для поздания анимированных портфолио',
+                'title' => 'Сайт создания портфолио',
+                'url' => 'https://portfolio.ru',
+                'image' => '/images/projects/project-3.jpg',
+                'industry' => 'education',
+                'project_type' => 'landing',
+                'platform' => 'custom',
+                'status' => 'В разработке',
+                'description' => 'Сайт для создания анимированных портфолио',
+                'stack' => json_encode(['Дизайн', 'Вёрстка', 'Анимация']),
             ],
             [
-                'title'       => 'Сайт пекарни',
-                'url'         => 'https://meal.ru',
-                'platform'    => 'wordpress',
-                'status'      => 'maintenance',
-                'description' => 'Интернет магазин продажи свежей выпечки',
+                'title' => 'Сайт пекарни',
+                'url' => 'https://meal.ru',
+                'image' => '/images/projects/project-4.jpg',
+                'industry' => 'horeca',
+                'project_type' => 'landing',
+                'platform' => 'wordpress',
+                'status' => 'Поддержка',
+                'description' => 'Интернет-магазин продажи свежей выпечки',
+                'stack' => json_encode(['Вёрстка', 'WordPress', 'SEO']),
             ],
             [
-                'title'       => 'Интернет магазин книг Book',
-                'url'         => 'https://book.ru',
-                'platform'    => 'custom',
-                'status'      => 'development',
-                'description' => 'Интернет магазин по продаже эксклюзивных книг',
+                'title' => 'Интернет-магазин книг Book',
+                'url' => 'https://book.ru',
+                'image' => '/images/projects/project-1.jpg',
+                'industry' => 'education',
+                'project_type' => 'online-store',
+                'platform' => 'custom',
+                'status' => 'В разработке',
+                'description' => 'Интернет-магазин по продаже эксклюзивных книг',
+                'stack' => json_encode(['UI/UX дизайн', 'Разработка']),
             ],
             [
-                'title'       => 'Клиненг сервис',
-                'url'         => 'https://cleaning.ru',
-                'platform'    => 'bitrix',
-                'status'      => 'production',
-                'description' => 'Клиненг сервис',
+                'title' => 'Клининг сервис',
+                'url' => 'https://cleaning.ru',
+                'image' => '/images/projects/project-2.jpg',
+                'industry' => 'manufacturing',
+                'project_type' => 'corporate-site',
+                'platform' => 'bitrix',
+                'status' => 'Завершено',
+                'description' => 'Клининг сервис',
+                'stack' => json_encode(['Bitrix', 'Вёрстка']),
             ],
             [
-                'title'       => 'Яндекс',
-                'url'         => 'https://yandex.ru',
-                'platform'    => 'custom',
-                'status'      => 'production',
-                'description' => 'Поисковая система'
+                'title' => 'Яндекс',
+                'url' => 'https://yandex.ru',
+                'image' => '/images/projects/project-3.jpg',
+                'industry' => 'retail',
+                'project_type' => 'corporate-site',
+                'platform' => 'custom',
+                'status' => 'Завершено',
+                'description' => 'Поисковая система',
+                'stack' => json_encode(['UI/UX дизайн', 'Разработка', 'SEO']),
             ],
             [
-                'title'       => 'Сайт зарубежных книг',
-                'url'         => 'https://foreign-books.ru',
-                'platform'    => 'custom',
-                'status'      => 'development',
-                'description' => 'Сайт по прадаже книг на разных языках',
+                'title' => 'Сайт зарубежных книг',
+                'url' => 'https://foreign-books.ru',
+                'image' => '/images/projects/project-4.jpg',
+                'industry' => 'education',
+                'project_type' => 'online-store',
+                'platform' => 'custom',
+                'status' => 'Архивировано',
+                'description' => 'Сайт по продаже книг на разных языках',
+                'stack' => json_encode(['UI/UX дизайн', 'Вёрстка']),
             ],
             [
-                'title'       => 'Сайт для бронирования катоморанов',
-                'url'         => 'https://catamarans.ru',
-                'platform'    => 'bitrix',
-                'status'      => 'maintenance',
-                'description' => 'Сайт для бронирования катоморанов',
+                'title' => 'Сайт для бронирования коттеджей',
+                'url' => 'https://cottage-booking.ru',
+                'image' => '/images/projects/project-1.jpg',
+                'industry' => 'travel',
+                'project_type' => 'corporate-site',
+                'platform' => 'bitrix',
+                'status' => 'Поддержка',
+                'description' => 'Платформа для аренды загородных домов',
+                'stack' => json_encode(['Bitrix', 'Вёрстка', 'Интеграция']),
             ],
             [
-                'title'       => 'Сайт по продаже продаже пиротехники',
-                'url'         => 'https://pyrotechnics-product.ru',
-                'platform'    => 'other',
-                'status'      => 'production',
-                'description' => null,
+                'title' => 'Сайт по продаже пиротехники',
+                'url' => 'https://fireworks-shop.ru',
+                'image' => '/images/projects/project-2.jpg',
+                'industry' => 'manufacturing',
+                'project_type' => 'online-store',
+                'platform' => 'other',
+                'status' => 'Завершено',
+                'description' => 'Магазин с доставкой пиротехники по всей России',
+                'stack' => json_encode(['UI/UX дизайн', 'Разработка', 'Интеграция']),
             ],
         ];
-
-        Project::truncate();
 
         foreach ($projects as $project) {
             Project::create($project);
         }
- 
-        $this->command->info('Создано ' . count($projects) . ' проектов');
     }
 }

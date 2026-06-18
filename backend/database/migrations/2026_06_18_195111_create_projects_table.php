@@ -6,25 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('url');
+            $table->string('image')->nullable();
+            $table->string('industry')->nullable();
+            $table->string('project_type')->nullable();
             $table->enum('platform', ['wordpress', 'bitrix', 'custom', 'other']);
-            $table->enum('status', ['development', 'production', 'maintenance', 'archived']);
+            $table->enum('status', ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'])->default('В разработке');
             $table->text('description')->nullable();
+            $table->json('stack')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('projects');
