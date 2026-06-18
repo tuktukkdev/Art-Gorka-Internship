@@ -40,7 +40,7 @@ export function ProjectDetail() {
     );
   }
 
-  const displayUrl = project.url.replace(/^https?:\/\//, "");
+  const displayUrl = project.link.replace(/^https?:\/\//, "");
 
   return (
     <div className="page">
@@ -57,12 +57,12 @@ export function ProjectDetail() {
               Назад
             </button>
 
-            <h1 className="project-detail__title subtitle">{project.title}</h1>
+            <h1 className="project-detail__title subtitle">{project.name}</h1>
 
             <div className="project-detail__hero">
               <img
                 src={project.image}
-                alt={project.title}
+                alt={project.name}
                 className="project-detail__hero-image"
               />
             </div>
@@ -96,7 +96,7 @@ export function ProjectDetail() {
                 <div className="project-detail__param">
                   <span className="project-detail__param-label">URL</span>
                   <a
-                    href={project.url}
+                    href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="project-detail__param-link"
@@ -124,7 +124,7 @@ export function ProjectDetail() {
                 )}
 
                 <a
-                  href={project.url}
+                  href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="project-detail__cta"
