@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import { Button } from "../Button";
 import { FilterTabs } from "../FilterTabs";
 import { ProjectCard } from "../ProjectCard";
-import { PROJECT_FILTERS_CONFIG } from "../../constants/projectFilters";
+import { PROJECT_SERVICES } from "../../constants/projectFilters";
 import { getProjectTags } from "../../utils/projectFilters";
 import { useProjects } from "../../hooks/useProjects";
 import "./ProjectsSection.css";
 
-const projectTypeFilter = PROJECT_FILTERS_CONFIG.find(
-  (filter) => filter.key === "projectType",
-);
+const serviceOptions = PROJECT_SERVICES.map((service) => ({
+  value: service,
+  label: service,
+}));
 
 export function ProjectsSection() {
-  const [filters, setFilters] = useState({ projectType: "" });
+  const [filters, setFilters] = useState({ service: "" });
   const { projects } = useProjects(filters);
 
   return (
@@ -23,11 +24,9 @@ export function ProjectsSection() {
 
         <FilterTabs
           allLabel="Все"
-          options={projectTypeFilter.options}
-          value={filters.projectType}
-          onChange={(value) =>
-            setFilters((prev) => ({ ...prev, projectType: value }))
-          }
+          options={serviceOptions}
+          value={filters.service}
+          onChange={(value) => setFilters({ service: value })}
         />
       </div>
 

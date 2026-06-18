@@ -10,16 +10,24 @@ import {
 import { getProjectTags } from "../../utils/projectFilters";
 import { useProjects } from "../../hooks/useProjects";
 import { useGridAnimation } from "../../hooks/useGridAnimation";
+import { useProjectFilterOptions } from "../../hooks/useProjectFilterOptions";
 import "./ListProjects.css";
 
 export function ListProjects() {
   const [filters, setFilters] = useState(DEFAULT_PROJECT_FILTERS);
   const { projects } = useProjects(filters);
   const { displayed, gridClassName } = useGridAnimation(projects);
+  const { filterOptions } = useProjectFilterOptions();
 
   const handleFilterChange = (key, value) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
+
+  const filtersConfig = PROJECT_FILTERS_CONFIG.map((filter) =>
+    filter.dynamic && filterOptions[filter.key]?.length
+      ? { ...filter, options: filterOptions[filter.key].map((v) => ({ value: v, label: v })) }
+      : filter
+  );
 
   return (
     <div className="page">
@@ -32,7 +40,7 @@ export function ListProjects() {
               <h1 className="subtitle">Все проекты</h1>
 
               <div className="list-projects__filters">
-                {PROJECT_FILTERS_CONFIG.map(({ key, label, allLabel, options }) => (
+                {filtersConfig.map(({ key, label, allLabel, options }) => (
                   <FilterGroup
                     key={key}
                     label={label}

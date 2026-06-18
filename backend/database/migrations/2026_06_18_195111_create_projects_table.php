@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('industry')->nullable();
             $table->string('project_type')->nullable();
-            $table->enum('platform', ['wordpress', 'bitrix', 'custom', 'other']);
+            $table->enum('platform', ['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое']);
             $table->enum('status', ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'])->default('В разработке');
             $table->text('description')->nullable();
             $table->json('stack')->nullable();

@@ -7,8 +7,8 @@ export default function App() {
     const [form, setForm] = useState({
         title: '',
         url: '',
-        platform: 'wordpress',
-        status: 'development',
+        platform: 'Wordpress',
+        status: 'В разработке',
         description: '',
     });
     const [editingId, setEditingId] = useState(null);
@@ -102,19 +102,19 @@ export default function App() {
                     value={form.platform}
                     onChange={(e) => setForm({ ...form, platform: e.target.value })}
                 >
-                    <option value="wordpress">WordPress</option>
-                    <option value="bitrix">Bitrix</option>
-                    <option value="custom">Custom</option>
-                    <option value="other">Other</option>
+                    <option value="Wordpress">Wordpress</option>
+                    <option value="Bitrix">Bitrix</option>
+                    <option value="Кастомная платформа">Кастомная платформа</option>
+                    <option value="Другое">Другое</option>
                 </select>
                 <select
                     value={form.status}
                     onChange={(e) => setForm({ ...form, status: e.target.value })}
                 >
-                    <option value="development">Development</option>
-                    <option value="production">Production</option>
-                    <option value="maintenance">Maintenance</option>
-                    <option value="archived">Archived</option>
+                    <option value="В разработке">В разработке</option>
+                    <option value="Завершено">Завершено</option>
+                    <option value="Поддержка">Поддержка</option>
+                    <option value="Архивировано">Архивировано</option>
                 </select>
                 <textarea
                     placeholder="Описание (необязательно)"

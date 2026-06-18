@@ -12,6 +12,14 @@ class ProjectController extends Controller
 {
     use ApiResponse;
 
+    public function filterOptions(): JsonResponse
+    {
+        return $this->success([
+            'industry'    => Project::whereNotNull('industry')->distinct()->orderBy('industry')->pluck('industry'),
+            'projectType' => Project::whereNotNull('project_type')->distinct()->orderBy('project_type')->pluck('project_type'),
+        ], 'Filter options fetched');
+    }
+
     public function index(Request $request): JsonResponse
     {
         $query = Project::query();
@@ -22,6 +30,10 @@ class ProjectController extends Controller
 
         if ($request->has('status')) {
             $query->where('status', $request->status);
+        }
+
+        if ($request->filled('service')) {
+            $query->whereJsonContains('stack', $request->service);
         }
 
         if ($request->has('industry')) {
@@ -41,22 +53,20 @@ class ProjectController extends Controller
         $limit = min((int) $request->get('limit', 10), 100);
         $projects = $query->paginate($limit);
 
-        $data = $projects->map(function ($project) {
-            return [
-                'id' => $project->id,
-                'title' => $project->title,
-                'url' => $project->url,
-                'image' => $project->image,
-                'industry' => $project->industry,
-                'projectType' => $project->project_type,
-                'platform' => $project->platform,
-                'status' => $project->status,
-                'description' => $project->description,
-                'stack' => json_decode($project->stack ?? '[]'),
-                'created_at' => $project->created_at,
-                'updated_at' => $project->updated_at,
-            ];
-        });
+        $data = $projects->map(fn ($project) => [
+            'id'          => $project->id,
+            'title'       => $project->title,
+            'url'         => $project->url,
+            'image'       => $project->image ? asset('storage/' . $project->image) : null,
+            'industry'    => $project->industry,
+            'projectType' => $project->project_type,
+            'platform'    => $project->platform,
+            'status'      => $project->status,
+            'description' => $project->description,
+            'stack'       => $project->stack ?? [],
+            'created_at'  => $project->created_at,
+            'updated_at'  => $project->updated_at,
+        ]);
 
         return $this->success($data, 'Projects fetched');
     }
@@ -75,10 +85,6 @@ class ProjectController extends Controller
             'stack'       => ['nullable', 'array'],
         ]);
 
-        if ($request->has('stack')) {
-            $validated['stack'] = json_encode($validated['stack']);
-        }
-
         $project = Project::create($validated);
 
         return $this->success($project, 'Project created', 201);
@@ -96,13 +102,13 @@ class ProjectController extends Controller
             'id' => $project->id,
             'title' => $project->title,
             'url' => $project->url,
-            'image' => $project->image,
+            'image' => $project->image ? asset('storage/' . $project->image) : null,
             'industry' => $project->industry,
             'projectType' => $project->project_type,
             'platform' => $project->platform,
             'status' => $project->status,
             'description' => $project->description,
-            'stack' => json_decode($project->stack ?? '[]'),
+            'stack' => $project->stack ?? [],
             'created_at' => $project->created_at,
             'updated_at' => $project->updated_at,
         ], 'Project fetched');
@@ -127,10 +133,6 @@ class ProjectController extends Controller
             'description' => ['nullable', 'string'],
             'stack'       => ['nullable', 'array'],
         ]);
-
-        if ($request->has('stack')) {
-            $validated['stack'] = json_encode($validated['stack']);
-        }
 
         $project->update($validated);
 

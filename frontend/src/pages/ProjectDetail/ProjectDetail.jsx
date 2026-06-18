@@ -1,8 +1,9 @@
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Button } from "../../components/Button";
-import { getProjectById } from "../../services/projectsService";
+import { fetchProjectById } from "../../api/projects";
 import { getFilterLabel } from "../../utils/projectFilters";
 import "./ProjectDetail.css";
 import iconLink from "../../assets/images/icon-link.svg";
@@ -23,9 +24,18 @@ function ParamValues({ value }) {
 export function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const project = getProjectById(id);
+  const [project, setProject] = useState(null);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!project) {
+  useEffect(() => {
+    fetchProjectById(id)
+      .then(setProject)
+      .catch((err) => {
+        if (err.message === 'not_found') setNotFound(true);
+      });
+  }, [id]);
+
+  if (notFound) {
     return (
       <div className="page">
         <Header />
@@ -35,6 +45,16 @@ export function ProjectDetail() {
             Вернуться назад
           </Button>
         </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="page">
+        <Header />
+        <main className="project-detail-not-found" />
         <Footer />
       </div>
     );

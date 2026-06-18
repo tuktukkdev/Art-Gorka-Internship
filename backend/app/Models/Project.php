@@ -9,25 +9,46 @@ class Project extends Model
     protected $fillable = [
         'title',
         'url',
+        'image',
+        'industry',
+        'project_type',
         'platform',
         'status',
         'description',
+        'stack',
     ];
 
-    const PLATFORMS = ['wordpress', 'bitrix', 'custom', 'other'];
-    const STATUSES  = ['development', 'production', 'maintenance', 'archived'];
+    protected $casts = [
+        'stack' => 'array',
+    ];
 
-    //Фильтрация проектов по platform и/или status.
+    const PLATFORMS = ['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое'];
+    const STATUSES  = ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'];
+
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         if (!empty($filters['platform'])) {
             $query->where('platform', $filters['platform']);
         }
- 
+
         if (!empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
- 
+
+        if (!empty($filters['industry'])) {
+            $industries = is_array($filters['industry'])
+                ? $filters['industry']
+                : explode(',', $filters['industry']);
+            $query->whereIn('industry', $industries);
+        }
+
+        if (!empty($filters['project_type'])) {
+            $types = is_array($filters['project_type'])
+                ? $filters['project_type']
+                : explode(',', $filters['project_type']);
+            $query->whereIn('project_type', $types);
+        }
+
         return $query;
     }
 }
