@@ -18,3 +18,15 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 1079px) {
+  .categories {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1079px) {
+  .categories {
+    padding-bottom: 64px;
+  }
+}

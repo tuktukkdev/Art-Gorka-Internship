@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import "./ProjectCard.css";
+import iconLink from "../../assets/images/icon-link.svg";
 
 export function ProjectCard({ project }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="project_card media-zoom">
+    <div
+      className="project_card media-zoom"
+      onClick={() => navigate(`/projects/${project.id}`)}
+    >
       <div className="project-card-image-wrapper">
         <img
           src={project.image}
@@ -24,7 +31,9 @@ export function ProjectCard({ project }) {
           target="_blank"
           rel="noopener noreferrer"
           className="project-card-link"
+          onClick={(e) => e.stopPropagation()}
         >
+          <img src={iconLink} alt="" className="project-card-link-icon" />
           {project.link.replace(/^https?:\/\//, "")}
         </a>
       </div>

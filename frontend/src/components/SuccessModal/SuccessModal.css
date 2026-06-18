@@ -1,0 +1,66 @@
+.success-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.success-modal {
+  position: relative;
+  background: var(--bg-primary);
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 60px 0 var(--shadow-primary);
+}
+
+.success-modal__close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: opacity 0.2s ease;
+}
+
+.success-modal__close:hover {
+  opacity: 0.7;
+}
+
+.success-modal__title {
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.success-modal__text {
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.success-modal__btn {
+  align-self: flex-start;
+  border-radius: 40px;
+  height: auto;
+  padding: 12px 32px;
+  margin-top: 12px;
+}
+
+@media (max-width: 360px) {
+  .success-modal {
+    width: 328px;
+  }
+}

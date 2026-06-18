@@ -20,12 +20,8 @@ export function getProjectTags(project) {
     .map((option) => option.label);
 }
 
-export function buildProjectsQuery(filters) {
-  const params = new URLSearchParams();
-
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value) params.set(key, value);
-  });
-
-  return params.toString();
+export function getFilterLabel(key, value) {
+  const filter = PROJECT_FILTERS_CONFIG.find((f) => f.key === key);
+  return filter?.options.find((o) => o.value === value)?.label ?? value;
 }
+
