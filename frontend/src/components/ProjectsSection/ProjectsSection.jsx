@@ -1,21 +1,23 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../Button";
 import { FilterTabs } from "../FilterTabs";
 import { ProjectCard } from "../ProjectCard";
-import { PROJECT_SERVICES } from "../../constants/projectFilters";
-import { getProjectTags } from "../../utils/projectFilters";
 import { useProjects } from "../../hooks/useProjects";
 import "./ProjectsSection.css";
 
-const serviceOptions = PROJECT_SERVICES.map((service) => ({
-  value: service,
-  label: service,
-}));
-
 export function ProjectsSection() {
-  const [filters, setFilters] = useState({ service: "" });
-  const { projects } = useProjects(filters);
+  const [service, setService] = useState("");
+  const { projects } = useProjects({});
+
+  const stackOptions = useMemo(() => {
+    const unique = [...new Set(projects.flatMap((p) => p.stack ?? []))];
+    return unique.map((s) => ({ value: s, label: s }));
+  }, [projects]);
+
+  const filtered = service
+    ? projects.filter((p) => Array.isArray(p.stack) && p.stack.includes(service))
+    : projects;
 
   return (
     <section id="projects" className="projects">
@@ -24,17 +26,17 @@ export function ProjectsSection() {
 
         <FilterTabs
           allLabel="Все"
-          options={serviceOptions}
-          value={filters.service}
-          onChange={(value) => setFilters({ service: value })}
+          options={stackOptions}
+          value={service}
+          onChange={setService}
         />
       </div>
 
       <ul className="projects__grid">
-        {projects.slice(0, 4).map((project) => (
+        {filtered.slice(0, 4).map((project) => (
           <li key={project.id}>
             <ProjectCard
-              project={{ ...project, tags: getProjectTags(project) }}
+              project={{ ...project, tags: project.stack ?? [] }}
             />
           </li>
         ))}

@@ -33,17 +33,44 @@ export function Header() {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleNavClick = (e, to) => {
+    const id = to.split("#")[1];
+    if (location.pathname === "/" && id) {
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth" });
+        window.history.replaceState(null, "", `#${id}`);
+        closeMenu();
+      }
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.history.replaceState(null, "", "/");
+      closeMenu();
+    }
+  };
+
   return (
     <header className={`header${isScrolled ? " header--scrolled" : ""}${isMenuOpen ? " header--menu-open" : ""}`}>
       <div className="container header__inner">
         <div className="left-side">
-          <Link to="/" className="logo" aria-label="На главную" onClick={closeMenu}>
+          <Link to="/" className="logo" aria-label="На главную" onClick={handleLogoClick}>
             <img src={logo} alt="Логотип" className="logo_image" />
           </Link>
 
           <nav className="nav_list" aria-label="Основная навигация">
             {navItems.map(({ label, to }) => (
-              <Link key={label} to={to} className="nav_item">
+              <Link
+                key={label}
+                to={to}
+                className="nav_item"
+                onClick={(e) => handleNavClick(e, to)}
+              >
                 {label}
               </Link>
             ))}
@@ -84,7 +111,12 @@ export function Header() {
           <div className="container mobile-menu__inner">
             <nav className="mobile-menu__nav">
               {navItems.map(({ label, to }) => (
-                <Link key={label} to={to} className="mobile-menu__link" onClick={closeMenu}>
+                <Link
+                  key={label}
+                  to={to}
+                  className="mobile-menu__link"
+                  onClick={(e) => handleNavClick(e, to)}
+                >
                   {label}
                 </Link>
               ))}

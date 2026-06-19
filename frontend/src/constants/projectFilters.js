@@ -1,3 +1,12 @@
+export const PROJECT_SERVICES = [
+  "SEO",
+  "Дизайн",
+  "Разработка сайта",
+  "Контекстная реклама",
+  "Обслуживание",
+  "SMM",
+];
+
 export const PROJECT_FILTERS_CONFIG = [
   {
     key: "industry",
@@ -35,15 +44,6 @@ export const PROJECT_FILTERS_CONFIG = [
       { value: "Другое", label: "Другое" },
     ],
   },
-];
-
-export const PROJECT_SERVICES = [
-  "SEO",
-  "Дизайн",
-  "Разработка сайта",
-  "Контекстная реклама",
-  "Обслуживание",
-  "SMM",
 ];
 
 export const DEFAULT_PROJECT_FILTERS = PROJECT_FILTERS_CONFIG.reduce(

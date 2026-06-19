@@ -87,71 +87,71 @@ export function ProjectDetail() {
               />
             </div>
 
+            <div className="project-detail__params">
+              <div className="project-detail__param">
+                <span className="project-detail__param-label">Отрасль</span>
+                <ParamValues value={getFilterLabel("industry", project.industry)} />
+              </div>
+
+              <div className="project-detail__param">
+                <span className="project-detail__param-label">Тип проекта</span>
+                <ParamValues value={getFilterLabel("projectType", project.projectType)} />
+              </div>
+
+              <div className="project-detail__param">
+                <span className="project-detail__param-label">Платформа</span>
+                <ParamValues value={project.platform} />
+              </div>
+
+              <div className="project-detail__param">
+                <span className="project-detail__param-label">Статус</span>
+                <ParamValues value={project.status} />
+              </div>
+
+              <div className="project-detail__param">
+                <span className="project-detail__param-label">URL</span>
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-detail__param-link"
+                >
+                  <img
+                    src={iconLink}
+                    alt=""
+                    className="project-detail__param-link-icon"
+                  />
+                  {displayUrl}
+                </a>
+              </div>
+
+              {project.stack && project.stack.length > 0 && (
+                <div className="project-detail__param">
+                  <span className="project-detail__param-label">Услуги</span>
+                  <div className="project-detail__param-values">
+                    {project.stack.map((item) => (
+                      <span key={item} className="project-detail__param-value">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="project-detail__body">
               <div className="project-detail__description">
                 <p className="text">{project.description}</p>
               </div>
 
-              <div className="project-detail__params">
-                <div className="project-detail__param">
-                  <span className="project-detail__param-label">Отрасль</span>
-                  <ParamValues value={getFilterLabel("industry", project.industry)} />
-                </div>
-
-                <div className="project-detail__param">
-                  <span className="project-detail__param-label">Тип проекта</span>
-                  <ParamValues value={getFilterLabel("projectType", project.projectType)} />
-                </div>
-
-                <div className="project-detail__param">
-                  <span className="project-detail__param-label">Платформа</span>
-                  <ParamValues value={project.platform} />
-                </div>
-
-                <div className="project-detail__param">
-                  <span className="project-detail__param-label">Статус</span>
-                  <ParamValues value={project.status} />
-                </div>
-
-                <div className="project-detail__param">
-                  <span className="project-detail__param-label">URL</span>
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-detail__param-link"
-                  >
-                    <img
-                      src={iconLink}
-                      alt=""
-                      className="project-detail__param-link-icon"
-                    />
-                    {displayUrl}
-                  </a>
-                </div>
-
-                {project.stack && project.stack.length > 0 && (
-                  <div className="project-detail__param">
-                    <span className="project-detail__param-label">Услуги</span>
-                    <div className="project-detail__param-values">
-                      {project.stack.map((item) => (
-                        <span key={item} className="project-detail__param-value">
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-detail__cta"
-                >
-                  <Button variant="primary">Открыть сайт</Button>
-                </a>
-              </div>
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-detail__cta"
+              >
+                <Button variant="primary">Открыть сайт</Button>
+              </a>
             </div>
           </section>
         </div>

@@ -7,7 +7,9 @@ export function filterProjects(projects, filters) {
 
       const config = PROJECT_FILTERS_CONFIG.find((f) => f.key === key);
       if (config?.multiValue) {
-        const projectValues = String(project[key]).split(", ");
+        const projectValues = Array.isArray(project[key])
+          ? project[key]
+          : String(project[key]).split(", ");
         return selectedValues.some((v) => projectValues.includes(v));
       }
 
@@ -22,7 +24,9 @@ export function getProjectTags(project) {
       return project[key] ? [project[key]] : [];
     }
     if (multiValue) {
-      const projectValues = String(project[key]).split(", ");
+      const projectValues = Array.isArray(project[key])
+        ? project[key]
+        : String(project[key]).split(", ");
       return projectValues
         .map((v) => options.find((o) => o.value === v))
         .filter(Boolean)
