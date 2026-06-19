@@ -45,7 +45,6 @@ export default function App() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const method = editingId ? 'put' : 'post';
         const url = editingId ? `/api/projects/${editingId}` : '/api/projects';
 
         const formData = new FormData();
@@ -56,6 +55,8 @@ export default function App() {
                 stackArray.forEach(item => formData.append('stack[]', item));
             } else if (key === 'image' && form[key] instanceof File) {
                 formData.append('image', form[key]);
+            } else if (key === 'image' && !form[key]) {
+                // не отправляем пустую картинку
             } else {
                 formData.append(key, form[key]);
             }
@@ -65,20 +66,27 @@ export default function App() {
             formData.append('_method', 'PUT');
         }
 
+        console.log('Sending to:', url);
+        console.log('FormData entries:');
+        for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
+
         axios.post(url, formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
-            .then(() => {
-                fetchProjects();
-                resetForm();
-            })
-            .catch(error => {
-                if (error.response) {
-                    alert('Ошибка валидации:\n' + JSON.stringify(error.response.data.errors, null, 2));
-                } else {
-                    alert('Ошибка: ' + error.message);
-                }
-            });
+        .then(() => {
+            fetchProjects();
+            resetForm();
+        })
+        .catch(error => {
+            console.error('Error response:', error.response);
+            if (error.response) {
+                alert('Ошибка валидации:\n' + JSON.stringify(error.response.data.errors, null, 2));
+            } else {
+                alert('Ошибка: ' + error.message);
+            }
+        });
     };
 
     const resetForm = () => {
@@ -104,16 +112,17 @@ export default function App() {
     };
 
     const handleEdit = (project) => {
+        console.log('Editing project:', project);
         setForm({
-            title: project.title,
-            url: project.url,
+            title: project.title || '',
+            url: project.url || '',
             image: null,
             industry: project.industry || '',
             project_type: project.projectType || '',
             platform: project.platform || 'Wordpress',
             status: project.status || 'В разработке',
             description: project.description || '',
-            stack: Array.isArray(project.stack) ? project.stack : JSON.parse(project.stack || '[]'),
+            stack: Array.isArray(project.stack) ? project.stack : [],
         });
         setEditingId(project.id);
     };
@@ -232,12 +241,24 @@ export default function App() {
 
             <ul style={{ listStyle: 'none', padding: 0 }}>
                 {projects.map(project => (
-                    <li key={project.id} style={{ marginBottom: '24px' }}>
+                    <li key={project.id} style={{ marginBottom: '24px', borderBottom: '1px solid #eee', paddingBottom: '16px' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                                 <strong style={{ fontSize: '20px', color: '#696FE5' }}>{project.title}</strong>
-                                <span style={{ marginLeft: '12px', color: '#424C5C' }}>— {project.platform} — {project.status}</span>
-                                {project.image && <img src={project.image} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: '12px' }} />}
+                                <span style={{ color: '#424C5C' }}>— {project.platform} — {project.status}</span>
+                                {project.image && (
+                                    <img 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        style={{ 
+                                            width: '60px', 
+                                            height: '60px', 
+                                            objectFit: 'cover', 
+                                            borderRadius: '8px',
+                                            border: '1px solid #e0e0e0'
+                                        }} 
+                                    />
+                                )}
                             </div>
                             <div style={{ display: 'flex', gap: '8px' }}>
                                 <Button variant="secondary" onClick={() => handleEdit(project)}>Edit</Button>
