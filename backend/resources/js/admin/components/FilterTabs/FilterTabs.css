@@ -1,0 +1,33 @@
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-tabs__item {
+  padding: 12px 20px;
+  border-radius: 80px;
+  font-size: 16px;
+  line-height: 100%;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s ease;
+}
+
+.filter-tabs__item:hover {
+  color: var(--text-accent);
+  border-color: var(--border-accent);
+}
+
+.filter-tabs__item.active {
+  background: var(--bg-accent);
+  border-color: var(--bg-accent);
+  color: var(--text-primary-inverse);
+}
+
+.filter-tabs__item.active:hover {
+  color: var(--text-primary-inverse);
+}

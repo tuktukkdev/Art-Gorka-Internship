@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './styles.css';
+import { Button } from './components/Button/Button';
 
 export default function App() {
     const [projects, setProjects] = useState([]);
@@ -7,11 +9,21 @@ export default function App() {
     const [form, setForm] = useState({
         title: '',
         url: '',
+        image: null,
+        industry: '',
+        project_type: '',
         platform: 'Wordpress',
         status: 'В разработке',
         description: '',
+        stack: [],
     });
     const [editingId, setEditingId] = useState(null);
+
+    const platformOptions = ['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое'];
+    const statusOptions = ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'];
+    const industryOptions = ['beauty', 'retail', 'horeca', 'construction', 'automotive', 'fitness', 'legal', 'travel', 'education', 'manufacturing'];
+    const projectTypeOptions = ['landing', 'corporate-site', 'online-store', 'ads', 'smm'];
+    const stackOptions = ['UI/UX дизайн', 'Вёрстка', 'Разработка', 'SEO', 'Контент-менеджмент', 'Интеграция', 'WordPress', '1С-Битрикс', 'Laravel', 'React.js', 'Vue.js', 'PostgreSQL', 'MySQL', 'PHP', 'JavaScript'];
 
     const fetchProjects = () => {
         setLoading(true);
@@ -36,7 +48,26 @@ export default function App() {
         const method = editingId ? 'put' : 'post';
         const url = editingId ? `/api/projects/${editingId}` : '/api/projects';
 
-        axios[method](url, form)
+        const formData = new FormData();
+        
+        Object.keys(form).forEach(key => {
+            if (key === 'stack') {
+                const stackArray = Array.isArray(form[key]) ? form[key] : [];
+                stackArray.forEach(item => formData.append('stack[]', item));
+            } else if (key === 'image' && form[key] instanceof File) {
+                formData.append('image', form[key]);
+            } else {
+                formData.append(key, form[key]);
+            }
+        });
+
+        if (editingId) {
+            formData.append('_method', 'PUT');
+        }
+
+        axios.post(url, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
             .then(() => {
                 fetchProjects();
                 resetForm();
@@ -45,7 +76,7 @@ export default function App() {
                 if (error.response) {
                     alert('Ошибка валидации:\n' + JSON.stringify(error.response.data.errors, null, 2));
                 } else {
-                    console.error(error.message);
+                    alert('Ошибка: ' + error.message);
                 }
             });
     };
@@ -54,9 +85,13 @@ export default function App() {
         setForm({
             title: '',
             url: '',
-            platform: 'wordpress',
-            status: 'development',
+            image: null,
+            industry: '',
+            project_type: '',
+            platform: 'Wordpress',
+            status: 'В разработке',
             description: '',
+            stack: [],
         });
         setEditingId(null);
     };
@@ -72,18 +107,33 @@ export default function App() {
         setForm({
             title: project.title,
             url: project.url,
-            platform: project.platform,
-            status: project.status,
+            image: null,
+            industry: project.industry || '',
+            project_type: project.projectType || '',
+            platform: project.platform || 'Wordpress',
+            status: project.status || 'В разработке',
             description: project.description || '',
+            stack: Array.isArray(project.stack) ? project.stack : JSON.parse(project.stack || '[]'),
         });
         setEditingId(project.id);
     };
 
-    if (loading) return <div>Загрузка...</div>;
+    const handleStackChange = (e) => {
+        const options = e.target.options;
+        const selected = [];
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                selected.push(options[i].value);
+            }
+        }
+        setForm({ ...form, stack: selected });
+    };
+
+    if (loading) return <div className="container" style={{ padding: '40px' }}>Загрузка...</div>;
 
     return (
-        <div style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-            <h1>Админка Art Gorka</h1>
+        <div className="container" style={{ padding: '40px' }}>
+            <h1 className="subtitle" style={{ marginBottom: '40px' }}>Админка Art Gorka</h1>
 
             <form onSubmit={handleSubmit} style={{ marginBottom: '40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <input
@@ -91,56 +141,108 @@ export default function App() {
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
                     required
+                    className="feedback-modal__input"
                 />
                 <input
                     placeholder="URL"
                     value={form.url}
                     onChange={(e) => setForm({ ...form, url: e.target.value })}
                     required
+                    className="feedback-modal__input"
                 />
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
+                    className="feedback-modal__input"
+                />
+
+                <select
+                    value={form.industry}
+                    onChange={(e) => setForm({ ...form, industry: e.target.value })}
+                    className="feedback-modal__input"
+                >
+                    <option value="">Выберите отрасль</option>
+                    {industryOptions.map(opt => (
+                        <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                </select>
+
+                <select
+                    value={form.project_type}
+                    onChange={(e) => setForm({ ...form, project_type: e.target.value })}
+                    className="feedback-modal__input"
+                >
+                    <option value="">Выберите тип проекта</option>
+                    {projectTypeOptions.map(opt => (
+                        <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                </select>
+
                 <select
                     value={form.platform}
                     onChange={(e) => setForm({ ...form, platform: e.target.value })}
+                    className="feedback-modal__input"
                 >
-                    <option value="Wordpress">Wordpress</option>
-                    <option value="Bitrix">Bitrix</option>
-                    <option value="Кастомная платформа">Кастомная платформа</option>
-                    <option value="Другое">Другое</option>
+                    {platformOptions.map(opt => (
+                        <option key={opt} value={opt}>{opt}</option>
+                    ))}
                 </select>
+
                 <select
                     value={form.status}
                     onChange={(e) => setForm({ ...form, status: e.target.value })}
+                    className="feedback-modal__input"
                 >
-                    <option value="В разработке">В разработке</option>
-                    <option value="Завершено">Завершено</option>
-                    <option value="Поддержка">Поддержка</option>
-                    <option value="Архивировано">Архивировано</option>
+                    {statusOptions.map(opt => (
+                        <option key={opt} value={opt}>{opt}</option>
+                    ))}
                 </select>
+
                 <textarea
                     placeholder="Описание (необязательно)"
                     value={form.description}
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
+                    className="feedback-modal__input feedback-modal__textarea"
                     style={{ gridColumn: '1 / -1', minHeight: '60px' }}
                 />
-                <button type="submit">
+
+                <select
+                    multiple
+                    value={form.stack}
+                    onChange={handleStackChange}
+                    className="feedback-modal__input"
+                    style={{ gridColumn: '1 / -1', minHeight: '80px' }}
+                >
+                    {stackOptions.map(opt => (
+                        <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                </select>
+
+                <Button variant="primary" type="submit" style={{ gridColumn: '1 / -1' }}>
                     {editingId ? 'Сохранить' : 'Создать'}
-                </button>
+                </Button>
                 {editingId && (
-                    <button type="button" onClick={resetForm}>
+                    <Button variant="secondary" type="button" onClick={resetForm} style={{ gridColumn: '1 / -1' }}>
                         Отмена
-                    </button>
+                    </Button>
                 )}
             </form>
 
             <ul style={{ listStyle: 'none', padding: 0 }}>
                 {projects.map(project => (
-                    <li key={project.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
-                        <div>
-                            <strong>{project.title}</strong> — {project.platform} — {project.status}
-                        </div>
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                            <button onClick={() => handleEdit(project)}>Edit</button>
-                            <button onClick={() => handleDelete(project.id)}>Delete</button>
+                    <li key={project.id} style={{ marginBottom: '24px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                                <strong style={{ fontSize: '20px', color: '#696FE5' }}>{project.title}</strong>
+                                <span style={{ marginLeft: '12px', color: '#424C5C' }}>— {project.platform} — {project.status}</span>
+                                {project.image && <img src={project.image} alt="" style={{ width: '50px', height: '50px', objectFit: 'cover', marginLeft: '12px' }} />}
+                            </div>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <Button variant="secondary" onClick={() => handleEdit(project)}>Edit</Button>
+                                <Button variant="primary" onClick={() => handleDelete(project.id)}>Delete</Button>
+                            </div>
                         </div>
                     </li>
                 ))}

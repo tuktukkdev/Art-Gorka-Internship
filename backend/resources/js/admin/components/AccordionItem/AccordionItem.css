@@ -1,0 +1,102 @@
+.accordion {
+  border-bottom: 1px solid var(--border-primary);
+  transition: border-color 0.2s ease;
+  padding-bottom: 40px;
+}
+
+.accordion:hover,
+.accordion.open {
+  border-bottom: 1px solid var(--border-accent);
+}
+
+.accordion-head {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.accordion-name {
+  text-align: left;
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 120%;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.accordion-name.active {
+  color: var(--text-accent);
+}
+
+.accordion-text {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: grid-template-rows 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  font-family: Onest;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  color: var(--text-primary);
+}
+
+.accordion-text.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordion-text-inner {
+  overflow: hidden;
+  padding-top: 16px;
+}
+
+.accordion-text-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.accordion-text-list .accordion-text-list {
+  margin-top: 12px;
+}
+
+.accordion-text-list li::marker {
+  font-size: 12px;
+}
+
+.icon-button {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.icon-button .icon-union {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.icon-button.open {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 719px) {
+  .accordion-name {
+    font-size: 20px;
+  }
+}

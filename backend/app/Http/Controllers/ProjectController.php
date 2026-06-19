@@ -7,66 +7,30 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
     use ApiResponse;
 
-    public function filterOptions(): JsonResponse
-    {
-        return $this->success([
-            'industry'    => Project::whereNotNull('industry')->distinct()->orderBy('industry')->pluck('industry'),
-            'projectType' => Project::whereNotNull('project_type')->distinct()->orderBy('project_type')->pluck('project_type'),
-        ], 'Filter options fetched');
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $query = Project::query();
+        $projects = Project::all();
 
-        if ($request->has('platform')) {
-            $query->where('platform', $request->platform);
-        }
-
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->filled('service')) {
-            $query->whereJsonContains('stack', $request->service);
-        }
-
-        if ($request->has('industry')) {
-            $industries = is_array($request->industry) 
-                ? $request->industry 
-                : explode(',', $request->industry);
-            $query->whereIn('industry', $industries);
-        }
-
-        if ($request->has('project_type')) {
-            $types = is_array($request->project_type) 
-                ? $request->project_type 
-                : explode(',', $request->project_type);
-            $query->whereIn('project_type', $types);
-        }
-
-        $limit = min((int) $request->get('limit', 10), 100);
-        $projects = $query->paginate($limit);
-
-        $data = $projects->map(fn ($project) => [
-            'id'          => $project->id,
-            'title'       => $project->title,
-            'url'         => $project->url,
-            'image'       => $project->image ? asset('storage/' . $project->image) : null,
-            'industry'    => $project->industry,
-            'projectType' => $project->project_type,
-            'platform'    => $project->platform,
-            'status'      => $project->status,
-            'description' => $project->description,
-            'stack'       => $project->stack ?? [],
-            'created_at'  => $project->created_at,
-            'updated_at'  => $project->updated_at,
-        ]);
+        $data = $projects->map(function ($project) {
+            return [
+                'id' => $project->id,
+                'title' => $project->title,
+                'url' => $project->url,
+                'image' => $project->image ? asset('storage/' . $project->image) : null,
+                'industry' => $project->industry,
+                'projectType' => $project->project_type,
+                'platform' => $project->platform,
+                'status' => $project->status,
+                'description' => $project->description,
+                'stack' => json_decode($project->stack ?? '[]'),
+            ];
+        });
 
         return $this->success($data, 'Projects fetched');
     }
@@ -76,14 +40,24 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'title'       => ['required', 'string', 'max:255'],
             'url'         => ['required', 'url', 'max:255'],
-            'image'       => ['nullable', 'string', 'max:255'],
+            'image'       => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:5120'],
             'industry'    => ['nullable', 'string', 'max:255'],
             'project_type'=> ['nullable', 'string', 'max:255'],
-            'platform'    => ['required', Rule::in(Project::PLATFORMS)],
+            'platform'    => ['required', Rule::in(['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое'])],
             'status'      => ['required', Rule::in(['В разработке', 'Завершено', 'Поддержка', 'Архивировано'])],
             'description' => ['nullable', 'string'],
             'stack'       => ['nullable', 'array'],
+            'stack.*'     => ['nullable', 'string'],
         ]);
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('projects', 'public');
+            $validated['image'] = $path;
+        }
+
+        if ($request->has('stack') && is_array($request->stack)) {
+            $validated['stack'] = json_encode(array_values(array_filter($request->stack)));
+        }
 
         $project = Project::create($validated);
 
@@ -108,7 +82,7 @@ class ProjectController extends Controller
             'platform' => $project->platform,
             'status' => $project->status,
             'description' => $project->description,
-            'stack' => $project->stack ?? [],
+            'stack' => json_decode($project->stack ?? '[]'),
             'created_at' => $project->created_at,
             'updated_at' => $project->updated_at,
         ], 'Project fetched');
@@ -125,14 +99,27 @@ class ProjectController extends Controller
         $validated = $request->validate([
             'title'       => ['sometimes', 'string', 'max:255'],
             'url'         => ['sometimes', 'url', 'max:255'],
-            'image'       => ['nullable', 'string', 'max:255'],
+            'image'       => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:5120'],
             'industry'    => ['nullable', 'string', 'max:255'],
             'project_type'=> ['nullable', 'string', 'max:255'],
-            'platform'    => ['sometimes', Rule::in(Project::PLATFORMS)],
+            'platform'    => ['sometimes', Rule::in(['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое'])],
             'status'      => ['sometimes', Rule::in(['В разработке', 'Завершено', 'Поддержка', 'Архивировано'])],
             'description' => ['nullable', 'string'],
             'stack'       => ['nullable', 'array'],
+            'stack.*'     => ['nullable', 'string'],
         ]);
+
+        if ($request->hasFile('image')) {
+            if ($project->image) {
+                Storage::disk('public')->delete($project->image);
+            }
+            $path = $request->file('image')->store('projects', 'public');
+            $validated['image'] = $path;
+        }
+
+        if ($request->has('stack') && is_array($request->stack)) {
+            $validated['stack'] = json_encode(array_values(array_filter($request->stack)));
+        }
 
         $project->update($validated);
 
@@ -145,6 +132,10 @@ class ProjectController extends Controller
 
         if (!$project) {
             return $this->error('Project not found', 404);
+        }
+
+        if ($project->image) {
+            Storage::disk('public')->delete($project->image);
         }
 
         $project->delete();
@@ -175,5 +166,20 @@ class ProjectController extends Controller
                 'is_available' => false,
             ], 'Site is not available');
         }
+    }
+
+    public function filterOptions(): JsonResponse
+    {
+        $industries = Project::distinct()->pluck('industry')->filter()->values();
+        $projectTypes = Project::distinct()->pluck('project_type')->filter()->values();
+        $platforms = Project::distinct()->pluck('platform')->filter()->values();
+        $statuses = Project::distinct()->pluck('status')->filter()->values();
+
+        return $this->success([
+            'industries' => $industries,
+            'project_types' => $projectTypes,
+            'platforms' => $platforms,
+            'statuses' => $statuses,
+        ], 'Filter options fetched');
     }
 }
