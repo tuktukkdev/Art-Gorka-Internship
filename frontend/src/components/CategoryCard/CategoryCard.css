@@ -41,7 +41,8 @@
     align-items: flex-end;
     padding: 0 0 24px 24px;
     background: linear-gradient(0deg, var(--bg-accent) 30%, transparent 100%);
-    transform: translateY(100%);
+    transform: translateY(0);
+    transition: none;
   }
 }
 

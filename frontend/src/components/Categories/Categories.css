@@ -23,6 +23,10 @@
   .categories {
     flex-direction: column;
   }
+
+  .categories .category-card {
+    animation: none;
+  }
 }
 
 @media (min-width: 720px) and (max-width: 1079px) {
