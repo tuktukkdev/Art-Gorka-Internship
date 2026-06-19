@@ -59,13 +59,47 @@ psql -U postgres -c "CREATE DATABASE art_gorka;"
 php artisan migrate
 ```
 
-### 7. Заполнить тестовыми данными (10 проектов)
+### 7. Создать символическую ссылку для хранилища (загрузка изображений)
 
 ```bash
-php artisan db:seed --class=ProjectSeeder
+php artisan storage:link
 ```
 
-### 8. Запустить сервер
+
+### 8. Заполнить базу данными
+
+```bash
+# Все сидеры сразу (10 проектов + admin-пользователь)
+php artisan db:seed
+
+# Или по отдельности:
+php artisan db:seed --class=ProjectSeeder
+php artisan db:seed --class=AdminUserSeeder
+```
+
+Данные admin-пользователя по умолчанию (задаются в `AdminUserSeeder`):
+
+```
+Логин:  admin
+Пароль: artgorka2026
+```
+
+### 9. Установить JS-зависимости и собрать ассеты админки
+
+```bash
+npm install
+npm run build
+```
+
+
+
+```bash
+npm run dev
+```
+
+> При работе через `npm run dev` Vite запускается на порту **5180**. Laravel отдаёт ассеты с dev-сервера автоматически пока существует файл `public/hot`.
+
+### 10. Запустить сервер
 
 ```bash
 php artisan serve
@@ -73,6 +107,7 @@ php artisan serve
 
 API будет доступно на `http://127.0.0.1:8000`
 
+Админ-панель: `http://127.0.0.1:8000/admin` 
 
 
 ### Фильтры

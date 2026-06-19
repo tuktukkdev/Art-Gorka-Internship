@@ -78,7 +78,20 @@ class ProjectController extends Controller
             return $this->error('Project not found', 404);
         }
 
-        return $this->success($project, 'Project fetched');
+        return $this->success([
+            'id'          => $project->id,
+            'title'       => $project->title,
+            'url'         => $project->url,
+            'image'       => $project->image ? asset('storage/' . $project->image) : null,
+            'industry'    => $project->industry,
+            'projectType' => $project->project_type,
+            'platform'    => $project->platform,
+            'status'      => $project->status,
+            'description' => $project->description,
+            'stack'       => $project->stack ?? [],
+            'created_at'  => $project->created_at,
+            'updated_at'  => $project->updated_at,
+        ], 'Project fetched');
     }
 
     public function update(Request $request, string $id): JsonResponse
