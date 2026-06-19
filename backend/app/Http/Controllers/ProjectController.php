@@ -31,7 +31,7 @@ class ProjectController extends Controller
                 'platform' => $project->platform,
                 'status' => $project->status,
                 'description' => $project->description,
-                'stack' => json_decode($project->stack ?? '[]'),
+                'stack' => $project->stack ?? [],
                 'created_at' => $project->created_at,
                 'updated_at' => $project->updated_at,
             ];
@@ -61,10 +61,8 @@ class ProjectController extends Controller
         }
 
         if ($request->has('stack') && is_array($request->stack)) {
-            $filtered = array_filter($request->stack, function ($item) {
-                return $item !== null && $item !== '';
-            });
-            $validated['stack'] = json_encode(array_values($filtered));
+            $filtered = array_filter($request->stack, fn($item) => $item !== null && $item !== '');
+            $validated['stack'] = array_values($filtered);
         }
 
         $project = Project::create($validated);
@@ -79,8 +77,6 @@ class ProjectController extends Controller
         if (!$project) {
             return $this->error('Project not found', 404);
         }
-
-        $project->stack = json_decode($project->stack ?? '[]');
 
         return $this->success($project, 'Project fetched');
     }
@@ -115,15 +111,11 @@ class ProjectController extends Controller
         }
 
         if ($request->has('stack') && is_array($request->stack)) {
-            $filtered = array_filter($request->stack, function ($item) {
-                return $item !== null && $item !== '';
-            });
-            $validated['stack'] = json_encode(array_values($filtered));
+            $filtered = array_filter($request->stack, fn($item) => $item !== null && $item !== '');
+            $validated['stack'] = array_values($filtered);
         }
 
         $project->update($validated);
-
-        $project->stack = json_decode($project->stack ?? '[]');
 
         return $this->success($project, 'Project updated');
     }
@@ -178,10 +170,10 @@ class ProjectController extends Controller
         $statuses = Project::distinct()->pluck('status')->filter()->values();
 
         return $this->success([
-            'industries' => $industries,
-            'project_types' => $projectTypes,
-            'platforms' => $platforms,
-            'statuses' => $statuses,
+            'industry' => $industries,
+            'projectType' => $projectTypes,
+            'platform' => $platforms,
+            'status' => $statuses,
         ], 'Filter options fetched');
     }
 }

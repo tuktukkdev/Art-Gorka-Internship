@@ -15,6 +15,8 @@ export default defineConfig({
         react(),
     ],
     server: {
+        port: 5180,
+        strictPort: true,
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },
