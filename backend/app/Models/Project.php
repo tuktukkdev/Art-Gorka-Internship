@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+
 class Project extends Model
 {
     protected $fillable = [
@@ -21,9 +22,6 @@ class Project extends Model
     protected $casts = [
         'stack' => 'array',
     ];
-
-    const PLATFORMS = ['Wordpress', 'Bitrix', 'Кастомная платформа', 'Другое'];
-    const STATUSES  = ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'];
 
     public function scopeFilter(Builder $query, array $filters): Builder
     {

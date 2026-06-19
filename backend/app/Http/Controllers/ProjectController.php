@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
 use App\Traits\ApiResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,9 @@ class ProjectController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $projects = Project::all();
+        $filters = $request->only(['platform', 'status', 'industry', 'project_type']);
+        
+        $projects = Project::filter($filters)->get();
 
         $data = $projects->map(function ($project) {
             return [
@@ -29,6 +32,8 @@ class ProjectController extends Controller
                 'status' => $project->status,
                 'description' => $project->description,
                 'stack' => json_decode($project->stack ?? '[]'),
+                'created_at' => $project->created_at,
+                'updated_at' => $project->updated_at,
             ];
         });
 
@@ -56,7 +61,10 @@ class ProjectController extends Controller
         }
 
         if ($request->has('stack') && is_array($request->stack)) {
-            $validated['stack'] = json_encode(array_values(array_filter($request->stack)));
+            $filtered = array_filter($request->stack, function ($item) {
+                return $item !== null && $item !== '';
+            });
+            $validated['stack'] = json_encode(array_values($filtered));
         }
 
         $project = Project::create($validated);
@@ -72,20 +80,9 @@ class ProjectController extends Controller
             return $this->error('Project not found', 404);
         }
 
-        return $this->success([
-            'id' => $project->id,
-            'title' => $project->title,
-            'url' => $project->url,
-            'image' => $project->image ? asset('storage/' . $project->image) : null,
-            'industry' => $project->industry,
-            'projectType' => $project->project_type,
-            'platform' => $project->platform,
-            'status' => $project->status,
-            'description' => $project->description,
-            'stack' => json_decode($project->stack ?? '[]'),
-            'created_at' => $project->created_at,
-            'updated_at' => $project->updated_at,
-        ], 'Project fetched');
+        $project->stack = json_decode($project->stack ?? '[]');
+
+        return $this->success($project, 'Project fetched');
     }
 
     public function update(Request $request, string $id): JsonResponse
@@ -118,10 +115,15 @@ class ProjectController extends Controller
         }
 
         if ($request->has('stack') && is_array($request->stack)) {
-            $validated['stack'] = json_encode(array_values(array_filter($request->stack)));
+            $filtered = array_filter($request->stack, function ($item) {
+                return $item !== null && $item !== '';
+            });
+            $validated['stack'] = json_encode(array_values($filtered));
         }
 
         $project->update($validated);
+
+        $project->stack = json_decode($project->stack ?? '[]');
 
         return $this->success($project, 'Project updated');
     }
@@ -152,7 +154,7 @@ class ProjectController extends Controller
         }
 
         try {
-            $response = \Illuminate\Support\Facades\Http::timeout(10)->get($project->url);
+            $response = Http::timeout(10)->get($project->url);
 
             return $this->success([
                 'url'          => $project->url,
