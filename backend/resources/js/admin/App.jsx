@@ -8,13 +8,6 @@ const PLATFORM_OPTIONS = ['Wordpress', 'Bitrix', 'Кастомная платф�
 const STATUS_OPTIONS   = ['В разработке', 'Завершено', 'Поддержка', 'Архивировано'];
 const STACK_OPTIONS    = ['Разработка сайта', 'Дизайн', 'SEO', 'Контекстная реклама', 'Обслуживание', 'SMM'];
 
-const STATUS_BADGE = {
-    'Завершено':    'badge--green',
-    'В разработке': 'badge--blue',
-    'Поддержка':    'badge--orange',
-    'Архивировано': 'badge--gray',
-};
-
 const EMPTY_FORM = {
     title: '',
     url: '',
@@ -28,14 +21,14 @@ const EMPTY_FORM = {
 };
 
 const IconEdit = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
     </svg>
 );
 
 const IconTrash = () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="3 6 5 6 21 6"/>
         <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
         <path d="M10 11v6M14 11v6"/>
@@ -44,7 +37,7 @@ const IconTrash = () => (
 );
 
 const IconImage = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="3" width="18" height="18" rx="2"/>
         <circle cx="8.5" cy="8.5" r="1.5"/>
         <polyline points="21 15 16 10 5 21"/>
@@ -107,9 +100,6 @@ export default function App() {
 
         if (editingId) formData.append('_method', 'PUT');
 
-        console.log('Sending to:', url);
-        for (let pair of formData.entries()) console.log(pair[0], pair[1]);
-
         axios.post(url, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => { fetchProjects(); resetForm(); })
             .catch(error => {
@@ -136,7 +126,6 @@ export default function App() {
     };
 
     const handleEdit = (project) => {
-        console.log('Editing project:', project);
         setForm({
             title:        project.title       || '',
             url:          project.url         || '',
@@ -176,11 +165,10 @@ export default function App() {
             </header>
 
             <div className="admin-body">
-                {/* ─── Form card ─── */}
                 <div className="admin-card">
                     <div className="admin-card__head">
                         <span className="admin-card__title">
-                            {editingId ? 'Редактирование проекта' : 'Новый проект'}
+                            {editingId ? 'Редактирование' : 'Новый проект'}
                         </span>
                         {editingId && (
                             <button className="btn btn--ghost btn--sm" type="button" onClick={resetForm}>
@@ -190,14 +178,13 @@ export default function App() {
                     </div>
                     <div className="admin-card__body">
                         <form className="admin-form" onSubmit={handleSubmit}>
-
                             <div className="admin-form__field">
                                 <label className="admin-form__label">
                                     Название<span className="admin-form__required">*</span>
                                 </label>
                                 <input
                                     className={`admin-form__input${errors.title ? ' admin-form__input--error' : ''}`}
-                                    placeholder="Например: «Сайт для кафе»"
+                                    placeholder="Название проекта"
                                     value={form.title}
                                     maxLength={60}
                                     onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
@@ -243,7 +230,7 @@ export default function App() {
                                 </label>
                                 <input
                                     className={`admin-form__input${errors.industry ? ' admin-form__input--error' : ''}`}
-                                    placeholder="Например: Ресторанный бизнес"
+                                    placeholder="Отрасль"
                                     value={form.industry}
                                     maxLength={30}
                                     onChange={e => setForm(f => ({ ...f, industry: e.target.value }))}
@@ -259,7 +246,7 @@ export default function App() {
                                 </label>
                                 <input
                                     className={`admin-form__input${errors.project_type ? ' admin-form__input--error' : ''}`}
-                                    placeholder="Например: Интернет-магазин"
+                                    placeholder="Тип проекта"
                                     value={form.project_type}
                                     maxLength={30}
                                     onChange={e => setForm(f => ({ ...f, project_type: e.target.value }))}
@@ -291,13 +278,13 @@ export default function App() {
                                 </select>
                             </div>
 
-                            <div className="admin-form__field">
+                            <div className="admin-form__field admin-form__full">
                                 <label className="admin-form__label">
                                     Описание<span className="admin-form__required">*</span>
                                 </label>
                                 <textarea
                                     className={`admin-form__input admin-form__textarea${errors.description ? ' admin-form__input--error' : ''}`}
-                                    placeholder="Краткое описание проекта..."
+                                    placeholder="Краткое описание..."
                                     value={form.description}
                                     maxLength={500}
                                     onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
@@ -310,7 +297,7 @@ export default function App() {
                                 </div>
                             </div>
 
-                            <div className="admin-form__field">
+                            <div className="admin-form__field admin-form__full">
                                 <label className="admin-form__label">
                                     Стек<span className="admin-form__required">*</span>
                                 </label>
@@ -332,7 +319,7 @@ export default function App() {
 
                             <div className="admin-form__actions">
                                 <button className="btn btn--primary btn--full" type="submit">
-                                    {editingId ? 'Сохранить изменения' : 'Создать проект'}
+                                    {editingId ? 'Сохранить' : 'Создать'}
                                 </button>
                                 {editingId && (
                                     <button className="btn btn--secondary btn--full" type="button" onClick={resetForm}>
@@ -344,13 +331,10 @@ export default function App() {
                     </div>
                 </div>
 
-                {/* ─── Table card ─── */}
                 <div className="admin-card">
                     <div className="admin-card__head">
                         <span className="admin-card__title">Проекты</span>
-                        <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-                            {projects.length} шт.
-                        </span>
+                        <span className="admin-card__count">{projects.length} шт.</span>
                     </div>
 
                     {loading ? (
@@ -363,7 +347,7 @@ export default function App() {
                                 <thead>
                                     <tr>
                                         <th>Фото</th>
-                                        <th>Название / URL</th>
+                                        <th>Название</th>
                                         <th>Платформа</th>
                                         <th>Статус</th>
                                         <th>Стек</th>
@@ -389,21 +373,15 @@ export default function App() {
                                                     href={project.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    style={{ pointerEvents: 'auto' }}
                                                 >
                                                     {project.url}
                                                 </a>
-                                                {project.industry && (
-                                                    <div className="admin-table__meta">{project.industry}</div>
-                                                )}
                                             </td>
                                             <td>
-                                                <span className="badge badge--gray">{project.platform}</span>
+                                                <span className="badge">{project.platform}</span>
                                             </td>
                                             <td>
-                                                <span className={`badge ${STATUS_BADGE[project.status] || 'badge--gray'}`}>
-                                                    {project.status}
-                                                </span>
+                                                <span className="badge">{project.status}</span>
                                             </td>
                                             <td>
                                                 {Array.isArray(project.stack) && project.stack.length > 0 ? (
@@ -413,7 +391,7 @@ export default function App() {
                                                         ))}
                                                     </div>
                                                 ) : (
-                                                    <span style={{ color: 'var(--text-secondary)', fontSize: '13px' }}>—</span>
+                                                    <span style={{ color: 'var(--text-secondary)', fontSize: '12px' }}>—</span>
                                                 )}
                                             </td>
                                             <td>
